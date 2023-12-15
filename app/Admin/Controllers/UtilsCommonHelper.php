@@ -87,6 +87,11 @@ class UtilsCommonHelper
                 ->where('type', 'Status')
                 ->where('value', $result)
                 ->first();
+        }elseif ($group === "Highlight") {
+            $commonCode = CommonCodeModel::where('group', $group)
+                ->where('type', 'Status')
+                ->where('value', $result)
+                ->first();
         } else {
             //TODO: CHECK lai
             $commonCode = CommonCodeModel::where('business_id', Admin::user()->business_id)

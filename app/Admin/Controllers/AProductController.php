@@ -38,6 +38,9 @@ class AProductController extends AdminController
         $grid->column('sell_policy', __('Chính sách bán hàng'));
         $grid->column('payment_policy', __('Chính sách thanh toán'));
         $grid->column('change_policy', __('Chính sách đổi trả'));
+        $grid->column('is_outstanding', __('Sản phẩm nổi bật'))->display(function ($status) {
+            return UtilsCommonHelper::statusFormatter($status, "Highlight", "grid");
+        });
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
@@ -71,6 +74,12 @@ class AProductController extends AdminController
         $show->field('sell_policy', __('Chính sách bán hàng'));
         $show->field('payment_policy', __('Chính sách thanh toán'));
         $show->field('change_policy', __('Chính sách đổi trả'));
+        $show->field('is_outstanding', __('Sản phẩm nổi bật'))->display(function ($status) {
+            return UtilsCommonHelper::statusFormatter($status, "Highlight", "grid");
+        });
+        $show->field('status', __('Trạng thái'))->display(function ($status) {
+            return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
+        });
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -86,6 +95,8 @@ class AProductController extends AdminController
     {
         $statusOptions = (new UtilsCommonHelper)->commonCode("Core", "Status", "description_vi", "value");
         $statusDefault = $statusOptions->keys()->first();
+        $highlightOptions = (new UtilsCommonHelper)->commonCode("Highlight", "Status", "description_vi", "value");
+        $highlightDefault = $highlightOptions->keys()->first();
         $branchs = (new UtilsCommonHelper)->optionsBranch();
         $business = (new UtilsCommonHelper)->currentBusiness();
 
@@ -115,6 +126,7 @@ class AProductController extends AdminController
         $form->textarea('sell_policy', __('Chính sách bán hàng'));
         $form->textarea('payment_policy', __('Chính sách thanh toán'));
         $form->textarea('change_policy', __('Chính sách đổi trả'));
+        $form->select('is_outstanding', __('Sản phẩm nổi bật'))->options($highlightOptions)->default($highlightDefault);
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
 
         $urlProductGroup = env('APP_URL') . '/api/product-group';
