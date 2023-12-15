@@ -22,5 +22,7 @@ Route::group([
     $router->resource('/product', AProductController::class);
     $router->resource('/social-information', ASocialInformationController::class);
     $router->resource('/sell-information', ASellInformationController::class);
+    $router->resource('/contact', AContactController::class);
+    $router->resource('/delivery-system', ADeliverySystemController::class);
 
 });

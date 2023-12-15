@@ -28,10 +28,12 @@ class UtilsCommonHelper
             return $commonCode;
         }
     }
+
     public static function currentBusiness()
     {
         return BusinessModel::where('id', Admin::user()->business_id)->first();
     }
+
     public static function commonCodeGridFormatter($group, $type, $description, $value)
     {
         $commonCode = CommonCode::where('business_id', Admin::user()->business_id)
@@ -49,6 +51,7 @@ class UtilsCommonHelper
         }
         return ProductGroupModel::all()->where('status', 1)->pluck('name', 'id');
     }
+
     public static function optionsCategoryByProductGroupId($productGroupId)
     {
         if ($productGroupId !== null) {
@@ -56,6 +59,7 @@ class UtilsCommonHelper
         }
         return CategoryModel::all()->where('status', 1)->pluck('name', 'id');
     }
+
     public static function optionsProductByBranchId($branchId)
     {
         if ($branchId !== null) {
@@ -63,11 +67,17 @@ class UtilsCommonHelper
         }
         return ProductModel::all()->where('status', 1)->pluck('name', 'id');
     }
+
     //Kiem tra ten lai(doi lai)
     public static function statusFormatter($value, $group, $isGrid)
     {
         $result = $value ? $value : 0;
         if ($group === "Core") {
+            $commonCode = CommonCode::where('group', $group)
+                ->where('type', 'Status')
+                ->where('value', $result)
+                ->first();
+        } elseif ($group === "Reply") {
             $commonCode = CommonCode::where('group', $group)
                 ->where('type', 'Status')
                 ->where('value', $result)
@@ -85,6 +95,7 @@ class UtilsCommonHelper
         }
         return $commonCode->description_vi;
     }
+
     public static function percentFormatter($value, $isGrid)
     {
 
@@ -93,18 +104,22 @@ class UtilsCommonHelper
         }
         return $value;
     }
+
     public static function statusFormFormatter()
     {
         return self::commonCode("Core", "Status", "description_vi", "value");
     }
+
     public static function statusGridFormatter($status)
     {
         return self::statusFormatter($status, "Core", "grid");
     }
+
     public static function statusDetailFormatter($status)
     {
         return self::statusFormatter($status, "Core", "detail");
     }
+
     public static function optionsBranch()
     {
         return BranchModel::where('business_id', Admin::user()->business_id)->where('status', 1)->pluck('branch_name', 'id');
