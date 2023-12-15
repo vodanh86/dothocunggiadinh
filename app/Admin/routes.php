@@ -26,5 +26,7 @@ Route::group([
     $router->resource('/delivery-system', ADeliverySystemController::class);
     $router->resource('/news', ANewsController::class);
     $router->resource('/events', AEventsController::class);
+    $router->resource('/events', AEventsController::class);
+    $router->resource('/system-information', ASystemInformationController::class);
 
 });

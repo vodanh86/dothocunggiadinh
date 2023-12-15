@@ -5,7 +5,7 @@ namespace App\Admin\Controllers;
 use App\Models\BranchModel;
 use App\Models\BusinessModel;
 use App\Models\CategoryModel;
-use App\Models\CommonCode;
+use App\Models\CommonCodeModel;
 use App\Models\ProductGroupModel;
 use App\Models\ProductModel;
 use Carbon\Carbon;
@@ -17,16 +17,16 @@ class UtilsCommonHelper
     public static function commonCode($group, $type, $description, $value)
     {
         if ($group === "Core") {
-            return CommonCode::where('group', $group)
+            return CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
         }elseif ($group ==="Communicatio"){
-            return CommonCode::where('group', $group)
+            return CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
         }
         else {
-            $commonCode = CommonCode::where('business_id', Admin::user()->business_id)
+            $commonCode = CommonCodeModel::where('business_id', Admin::user()->business_id)
                 ->where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
@@ -41,7 +41,7 @@ class UtilsCommonHelper
 
     public static function commonCodeGridFormatter($group, $type, $description, $value)
     {
-        $commonCode = CommonCode::where('business_id', Admin::user()->business_id)
+        $commonCode = CommonCodeModel::where('business_id', Admin::user()->business_id)
             ->where('group', $group)
             ->where('type', $type)
             ->where('value', $value)
@@ -78,18 +78,18 @@ class UtilsCommonHelper
     {
         $result = $value ? $value : 0;
         if ($group === "Core") {
-            $commonCode = CommonCode::where('group', $group)
+            $commonCode = CommonCodeModel::where('group', $group)
                 ->where('type', 'Status')
                 ->where('value', $result)
                 ->first();
         } elseif ($group === "Reply") {
-            $commonCode = CommonCode::where('group', $group)
+            $commonCode = CommonCodeModel::where('group', $group)
                 ->where('type', 'Status')
                 ->where('value', $result)
                 ->first();
         } else {
             //TODO: CHECK lai
-            $commonCode = CommonCode::where('business_id', Admin::user()->business_id)
+            $commonCode = CommonCodeModel::where('business_id', Admin::user()->business_id)
                 ->where('group', $group)
                 ->where('type', 'Status')
                 ->where('value', $result)
