@@ -12,10 +12,10 @@ class CommunicationModel extends Model
 
     protected $guarded = [];
 
-//    public function branch()
-//    {
-//        return $this->belongsTo(BranchModel::class, 'branch_id');
-//    }
+    public function branch()
+    {
+        return $this->belongsTo(BranchModel::class, 'branch_id');
+    }
 //    public function teacher()
 //    {
 //        return $this->belongsTo(EduTeacher::class, 'teacher_id');

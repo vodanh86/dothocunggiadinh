@@ -24,5 +24,7 @@ Route::group([
     $router->resource('/sell-information', ASellInformationController::class);
     $router->resource('/contact', AContactController::class);
     $router->resource('/delivery-system', ADeliverySystemController::class);
+    $router->resource('/news', ANewsController::class);
+    $router->resource('/events', AEventsController::class);
 
 });

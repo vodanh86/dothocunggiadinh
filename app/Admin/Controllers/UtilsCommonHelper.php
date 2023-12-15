@@ -20,7 +20,12 @@ class UtilsCommonHelper
             return CommonCode::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
-        } else {
+        }elseif ($group ==="Communicatio"){
+            return CommonCode::where('group', $group)
+                ->where('type', $type)
+                ->pluck($description, $value);
+        }
+        else {
             $commonCode = CommonCode::where('business_id', Admin::user()->business_id)
                 ->where('group', $group)
                 ->where('type', $type)
