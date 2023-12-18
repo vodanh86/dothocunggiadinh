@@ -103,7 +103,7 @@ class AProductController extends AdminController
         $statusDefault = $statusOptions->keys()->first();
         $highlightOptions = (new UtilsCommonHelper)->commonCode("Highlight", "Status", "description_vi", "value");
         $highlightDefault = $highlightOptions->keys()->first();
-        $freeShipOptions = (new UtilsCommonHelper)->commonCode("Product", "Status", "description_vi", "value");
+        $freeShipOptions = (new UtilsCommonHelper)->commonCode("Product", "freeShip", "description_vi", "value");
         $freeShipDefault = $freeShipOptions->keys()->first();
         $branchs = (new UtilsCommonHelper)->optionsBranch();
         $business = (new UtilsCommonHelper)->currentBusiness();
