@@ -34,6 +34,7 @@ class ASystemInformationController extends AdminController
         $grid->column('type', __('Thể loại'))->filter('like');
         $grid->column('value', __('Giá trị'));
         $grid->column('description_vi', __('Mô tả tiếng việt'));
+        $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('order', __('Sắp xếp'));
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
@@ -73,6 +74,8 @@ class ASystemInformationController extends AdminController
         $show->field('value', __('Giá trị'));
         $show->field('description_vi', __('Mô tả tiếng việt'));
         $show->field('order', __('Sắp xếp'));
+        $show->field('image', __('Hình ảnh'))->image();
+
         $show->field('status', __('Trạng thái'))->as(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "detail");
         });
@@ -117,6 +120,7 @@ class ASystemInformationController extends AdminController
         }
         $form->text('description_vi', __('Mô tả tiếng việt'))->required();
         $form->text('description_en', __('Mô tả tiếng anh'))->required();
+        $form->image('image', __('Hình ảnh'));
         $form->text('order', __('Sắp xếp'));
         $form->select('block_delete', __('Chặn xoá'))->options(array(0 => 'Không', 1 => 'Có'))->required();
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault)->required();

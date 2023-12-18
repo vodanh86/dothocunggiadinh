@@ -29,7 +29,7 @@ class AProductGroupController extends AdminController
         $grid->column('branch.branch_name', __('Tên chi nhánh'));
         $grid->column('name', __('Tên nhóm sản phẩm'));
         $grid->column('description', __('Mô tả'));
-        $grid->column('cover_image', __('Ảnh'));
+        $grid->column('cover_image', __('Ảnh'))->image();
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
@@ -51,7 +51,7 @@ class AProductGroupController extends AdminController
         $show->field('branch.branch_name', __('Tên chi nhánh'));
         $show->field('name', __('Tên nhóm sản phẩm'));
         $show->field('description', __('Mô tả'));
-        $show->field('cover_image', __('Ảnh'));
+        $show->field('cover_image', __('Ảnh'))->image();
         $show->field('created_at', __('Created at'))->sortable();
         $show->field('updated_at', __('Updated at'));
 
@@ -82,7 +82,7 @@ class AProductGroupController extends AdminController
         }
         $form->text('name', __('Tên nhóm sản phẩm'));
         $form->text('description', __('Mô tả'));
-        $form->text('cover_image', __('Hình ảnh'));
+        $form->image('cover_image', __('Hình ảnh'));
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
 
         return $form;

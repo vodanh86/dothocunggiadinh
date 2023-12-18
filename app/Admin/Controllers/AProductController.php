@@ -32,7 +32,7 @@ class AProductController extends AdminController
         $grid->column('category.name', __('Loại sản phẩm'));
         $grid->column('name', __('Tên sản phẩm'));
         $grid->column('video', __('Video'));
-        $grid->column('image', __('Hình ảnh'));
+        $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('description', __('Mô tả'));
         $grid->column('detail', __('Chi tiết sản phẩm'));
         $grid->column('sell_policy', __('Chính sách bán hàng'));
@@ -71,7 +71,7 @@ class AProductController extends AdminController
         $show->field('category.name', __('Loại sản phẩm'));
         $show->field('name', __('Tên sản phẩm'));
         $show->field('video', __('Video'));
-        $show->field('image', __('Hình ảnh'));
+        $show->field('image', __('Hình ảnh'))->image();
         $show->field('description', __('Mô tả'));
         $show->field('detail', __('Chi tiết sản phẩm'));
         $show->field('sell_policy', __('Chính sách bán hàng'));
@@ -128,7 +128,7 @@ class AProductController extends AdminController
         }
         $form->text('name', __('Tên sản phẩm'))->required();
         $form->text('video', __('Video'));
-        $form->text('image', __('Hình ảnh'));
+        $form->image('image', __('Hình ảnh'));
         $form->textarea('description', __('Mô tả'));
         $form->textarea('detail', __('Chi tiết sản phẩm'));
         $form->textarea('sell_policy', __('Chính sách bán hàng'));
