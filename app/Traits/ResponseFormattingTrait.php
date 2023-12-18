@@ -21,4 +21,13 @@ trait ResponseFormattingTrait
             'message' => $message,
         ];
     }
+    private function _formatBaseResponseWithTotal($statusCode, $data, $total, $message)
+    {
+        return [
+            'statusCode' => $statusCode,
+            'data' => $data,
+            'total' => $total,
+            'message' => $message,
+        ];
+    }
 }

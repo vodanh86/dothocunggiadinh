@@ -34,10 +34,13 @@ Route::get('product', 'ProductController@find');
 Route::get('product/all', 'ProductController@getAll');
 Route::get('product/get-by-id', 'ProductController@getById');
 Route::get('product/high-light-product', 'ProductController@listHighLight');
+Route::get('product/get-by-product-group/{id}', 'ProductController@getByProductGroup');
+Route::get('product/get-related-product/{id}', 'ProductController@relatedProduct');
 
 Route::get('events/coming-soon', 'EventController@listComingSoonEvents');
 
 Route::get('system-information/about-us', 'SystemInformationController@aboutUs');
+Route::get('system-information/contact', 'SystemInformationController@contactInformation');
 
 
 
