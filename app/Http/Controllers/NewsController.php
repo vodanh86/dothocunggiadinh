@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\CommunicationModel;
+use App\Models\ProductModel;
 use App\Traits\ResponseFormattingTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class EventController extends Controller
+class NewsController extends Controller
 {
     use ResponseFormattingTrait;
 
@@ -35,14 +36,6 @@ class EventController extends Controller
         return response()->json($productGroups);
     }
 
-    public function listComingSoonEvents(Request $request)
-    {
-        $perPage = $request->input('limit', 3);
-        $resultTmp = DB::select("select * from communication c where c.`type` = 0 and c.status =1 order by c.end_date desc  LIMIT :perPage", ['perPage' => $perPage]);
-
-        $response = $this->_formatBaseResponse(200, $resultTmp, 'Lấy dữ liệu thành công');
-        return response()->json($response);
-    }
     private static function formatResponse(int $statusCode, $data, string $message)
     {
         return [
@@ -50,6 +43,15 @@ class EventController extends Controller
             'data' => $data,
             'message' => $message,
         ];
+    }
+
+    public function latestNews(Request $request)
+    {
+        $perPage = $request->input('limit', 3);
+        $resultTmp = DB::select("select * from communication c where c.`type` = 1 and c.status =1 order by c.end_date desc  LIMIT :perPage", ['perPage' => $perPage]);
+
+        $response = $this->_formatBaseResponse(200, $resultTmp, 'Lấy dữ liệu thành công');
+        return response()->json($response);
     }
 
 

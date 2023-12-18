@@ -38,6 +38,10 @@ Route::get('product/get-by-product-group/{id}', 'ProductController@getByProductG
 Route::get('product/get-related-product/{id}', 'ProductController@relatedProduct');
 
 Route::get('events/coming-soon', 'EventController@listComingSoonEvents');
+Route::get('events/get-by-id/{id}', 'EventController@find');
+
+Route::get('news/list-latest-news', 'NewsController@latestNews');
+Route::get('news/get-by-id/{id}', 'NewsController@find');
 
 Route::get('system-information/about-us', 'SystemInformationController@aboutUs');
 Route::get('system-information/contact', 'SystemInformationController@contactInformation');
