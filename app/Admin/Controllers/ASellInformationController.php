@@ -147,7 +147,7 @@ class ASellInformationController extends AdminController
             var originPrice=$("#origin_price");
             var salePercent=$("#sale_percent");
             var currentPrice=$("#current_price");
-            var salePercentValue;
+            var salePercentValue=0;
             var originPriceValue;
 
             function parseFormattedNumber(num) {

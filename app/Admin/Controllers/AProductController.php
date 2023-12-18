@@ -41,6 +41,9 @@ class AProductController extends AdminController
         $grid->column('is_outstanding', __('Sản phẩm nổi bật'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Highlight", "grid");
         });
+        $grid->column('freeShip', __('Ưu đãi vận chuyển'))->display(function ($status) {
+            return UtilsCommonHelper::statusFormatter($status, "Product", "grid");
+        });
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
@@ -77,6 +80,9 @@ class AProductController extends AdminController
         $show->field('is_outstanding', __('Sản phẩm nổi bật'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Highlight", "grid");
         });
+        $show->field('freeShip', __('Ưu đãi vận chuyển'))->display(function ($status) {
+            return UtilsCommonHelper::statusFormatter($status, "Product", "grid");
+        });
         $show->field('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
@@ -97,6 +103,8 @@ class AProductController extends AdminController
         $statusDefault = $statusOptions->keys()->first();
         $highlightOptions = (new UtilsCommonHelper)->commonCode("Highlight", "Status", "description_vi", "value");
         $highlightDefault = $highlightOptions->keys()->first();
+        $freeShipOptions = (new UtilsCommonHelper)->commonCode("Product", "freeShip", "description_vi", "value");
+        $freeShipDefault = $freeShipOptions->keys()->first();
         $branchs = (new UtilsCommonHelper)->optionsBranch();
         $business = (new UtilsCommonHelper)->currentBusiness();
 
@@ -127,6 +135,7 @@ class AProductController extends AdminController
         $form->textarea('payment_policy', __('Chính sách thanh toán'));
         $form->textarea('change_policy', __('Chính sách đổi trả'));
         $form->select('is_outstanding', __('Sản phẩm nổi bật'))->options($highlightOptions)->default($highlightDefault);
+        $form->select('freeShip', __('Ưu đãi vận chuyển'))->options($freeShipOptions)->default($freeShipDefault);
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
 
         $urlProductGroup = env('APP_URL') . '/api/product-group';
