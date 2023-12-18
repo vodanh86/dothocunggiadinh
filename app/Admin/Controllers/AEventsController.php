@@ -34,7 +34,7 @@ class AEventsController extends AdminController
         $grid->column('slug', __('Đường dẫn'));
         $grid->column('start_date', __('Ngày bắt đầu'));
         $grid->column('end_date', __('Ngày kết thúc'));
-        $grid->column('image', __('Hình ảnh'));
+        $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('public_date', __('Ngày công khai'));
         $grid->column('author', __('Tác giả'));
         $grid->column('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
@@ -66,7 +66,7 @@ class AEventsController extends AdminController
         $show->field('slug', __('Đường dẫn'));
         $show->field('start_date', __('Ngày bắt đầu'));
         $show->field('end_date', __('Ngày kết thúc'));
-        $show->field('image', __('Hình ảnh'));
+        $show->field('image', __('Hình ảnh'))->image();
         $show->field('public_date', __('Ngày công khai'));
         $show->field('author', __('Tác giả'));
         $show->field('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
@@ -112,7 +112,7 @@ class AEventsController extends AdminController
         $form->text('slug', __('Đường dẫn'));
         $form->date('start_date', __('Ngày bắt đầu'));
         $form->date('end_date', __('Ngày kết thúc'));
-        $form->text('image', __('Hình ảnh'));
+        $form->image('image', __('Hình ảnh'));
         $form->date('public_date', __('Ngày công khai'));
         $form->text('author', __('Tác giả'));
         $form->select('is_display', __('Trạng thái hiển thị'))->options($displayOptions)->default($displayDefault);

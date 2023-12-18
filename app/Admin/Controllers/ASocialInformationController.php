@@ -30,7 +30,7 @@ class ASocialInformationController extends AdminController
         $grid->column('product.name', __('Tên sản phẩm'));
         $grid->column('platform', __('Nền tảng'));
         $grid->column('link', __('Link sản phẩm'));
-        $grid->column('image', __('Hình ảnh'));
+        $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
@@ -88,7 +88,7 @@ class ASocialInformationController extends AdminController
         }
         $form->text('platform', __('Nền tảng'));
         $form->text('link', __('Link sản phẩm'));
-        $form->text('image', __('Hình ảnh'));
+        $form->image('image', __('Hình ảnh'));
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
 
         $urlProduct = env('APP_URL') . '/api/product';
