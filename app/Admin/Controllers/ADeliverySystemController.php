@@ -32,6 +32,7 @@ class ADeliverySystemController extends AdminController
         $grid->column('phone_number', __('Số điện thoại'));
         $grid->column('email', __('Email'));
         $grid->column('address', __('Địa chỉ'));
+        $grid->column('address_map', __('Địa chỉ trên bản đồ'));
         $grid->column('order', __('Thứ tự'));
         $grid->column('note', __('Ghi chú'));
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
@@ -56,6 +57,7 @@ class ADeliverySystemController extends AdminController
         $show->field('phone_number', __('Số điện thoại'));
         $show->field('email', __('Email'));
         $show->field('address', __('Địa chỉ'));
+        $show->field('address_map', __('Địa chỉ trên bản đồ'));
         $show->field('order', __('Thứ tự'));
         $show->field('note', __('Ghi chú'));
         $show->field('status', __('Trạng thái'))->display(function ($status) {
@@ -93,6 +95,7 @@ class ADeliverySystemController extends AdminController
         $form->text('phone_number', __('Số điện thoại'));
         $form->email('email', __('Email'));
         $form->text('address', __('Địa chỉ'));
+        $form->text('address_map', __('Địa chỉ trên bản đồ'));
         $form->number('order', __('Thứ tự'));
         $form->text('note', __('Ghi chú'));
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
