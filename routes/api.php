@@ -39,6 +39,7 @@ Route::get('product/get-by-id', 'ProductController@getById');
 Route::get('product/high-light-product', 'ProductController@listHighLight');
 Route::get('product/get-by-product-group/{id}', 'ProductController@getByProductGroup');
 Route::get('product/get-related-product/{id}', 'ProductController@relatedProduct');
+Route::get('product/search', 'ProductController@searchProduct');
 
 //events
 Route::get('events/coming-soon', 'EventController@listComingSoonEvents');
@@ -51,6 +52,8 @@ Route::get('news/get-by-id/{id}', 'NewsController@find');
 //system information
 Route::get('system-information/about-us', 'SystemInformationController@aboutUs');
 Route::get('system-information/contact', 'SystemInformationController@contactInformation');
+Route::get('system-information/slogan', 'SystemInformationController@slogan');
+Route::get('system-information/history', 'SystemInformationController@history');
 
 //delivery system
 Route::get('delivery-system/all', 'DeliverySystemController@getAllDeliverySystem');

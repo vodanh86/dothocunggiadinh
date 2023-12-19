@@ -36,7 +36,7 @@ class ProductGroupController extends Controller
 
     public static function getAllWithLimit(Request $request)
     {
-        $limit = $request->input('limit', 5);
+        $limit = $request->input('limit', 6);
         $productGroups = ProductGroupModel::query()
             ->limit($limit)
             ->get();
