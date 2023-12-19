@@ -119,7 +119,7 @@ order by
                 'categoryId' => $categoryId,
                 'productId' => $id,
                 'perPage' => $perPage,
-                ]);
+            ]);
 
             $uniqueProductNames = [];
             $filteredResults = array_filter($resultTmp, function ($result) use (&$uniqueProductNames) {
@@ -137,6 +137,32 @@ order by
     }
 
     //tim kiem san pham
+    public function searchProduct(Request $request)
+    {
 
+        $perPage = $request->input('limit', 5);
+        $productName = $request->input('name', '');
+//        if ($id === null) {
+//            $error = $this->_formatBaseResponse(400, null, 'Yêu cầu nhập product group Id');
+//            return response()->json($error);
+//        } else {
+//            $product = ProductModel::find($id);
+//            $categoryId = $product->category_id;
+
+        $resultTmp = DB::select("SELECT p.id as id, p.name as productName, p.image as image, p.freeShip,
+           si.origin_price, si.current_price, si.sale_percent
+    FROM product p
+    INNER JOIN sell_information si ON p.id = si.product_id
+    WHERE p.name like ?
+    ORDER BY p.updated_at DESC
+    LIMIT ?", ['%' . $productName . '%', $perPage]);
+
+
+        $total = count($resultTmp);
+
+        $response = $this->_formatBaseResponseWithTotal(200, $resultTmp, $total, 'Lấy dữ liệu thành công');
+        return response()->json($response);
+    }
+//    }
 
 }
