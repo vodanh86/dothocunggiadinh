@@ -36,4 +36,16 @@ class SystemInformationController extends Controller
         $response = $this->_formatBaseResponse(200, $result, 'Lấy dữ liệu thành công');
         return response()->json($response);
     }
+    public function slogan()
+    {
+        $result = DB::select("select csi.id, csi.`group` ,csi.`type` ,csi.value ,csi.image,csi.description_vi,csi.description_en ,csi.`order`  from core_system_information csi WHERE csi.`group` ='Website' and csi.`type` ='Slogan' and csi.status =1 order by csi.value asc;");
+        $response = $this->_formatBaseResponse(200, $result, 'Lấy dữ liệu thành công');
+        return response()->json($response);
+    }
+    public function history()
+    {
+        $result = DB::select("select csi.id, csi.`group` ,csi.`type` ,csi.value ,csi.image,csi.description_vi,csi.description_en ,csi.`order`  from core_system_information csi WHERE csi.`group` ='Website' and csi.`type` ='History' and csi.status =1 order by csi.value asc;");
+        $response = $this->_formatBaseResponse(200, $result, 'Lấy dữ liệu thành công');
+        return response()->json($response);
+    }
 }

@@ -51,6 +51,8 @@ Route::get('news/get-by-id/{id}', 'NewsController@find');
 //system information
 Route::get('system-information/about-us', 'SystemInformationController@aboutUs');
 Route::get('system-information/contact', 'SystemInformationController@contactInformation');
+Route::get('system-information/slogan', 'SystemInformationController@slogan');
+Route::get('system-information/history', 'SystemInformationController@history');
 
 //delivery system
 Route::get('delivery-system/all', 'DeliverySystemController@getAllDeliverySystem');
