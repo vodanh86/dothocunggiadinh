@@ -31,7 +31,10 @@ class AProductController extends AdminController
         $grid->column('productGroup.name', __('Tên nhóm sản phẩm'));
         $grid->column('category.name', __('Loại sản phẩm'));
         $grid->column('name', __('Tên sản phẩm'));
-        $grid->column('video', __('Video'));
+//        $grid->column('video', __('Video'));
+        $grid->column('video',__('Video2'))->display(function ($video) {
+            return " <video width='320' height='240' controls> <source src=$video type='video / mp4'> </video>";
+        });
         $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('description', __('Mô tả'));
         $grid->column('detail', __('Chi tiết sản phẩm'));
@@ -70,8 +73,8 @@ class AProductController extends AdminController
         $show->field('productGroup.name', __('Tên nhóm sản phẩm'));
         $show->field('category.name', __('Loại sản phẩm'));
         $show->field('name', __('Tên sản phẩm'));
-        $show->field('video', __('Video'));
-        $show->field('video',__('Video'))->display(function ($video) {
+//        $show->field('video', __('Video'));
+        $show->field('video',__('Video2'))->display(function ($video) {
             return " <video width='320' height='240' controls> <source src=$video type='video / mp4'> </video>";
     });
 
