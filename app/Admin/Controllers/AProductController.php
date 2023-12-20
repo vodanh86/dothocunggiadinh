@@ -71,6 +71,10 @@ class AProductController extends AdminController
         $show->field('category.name', __('Loại sản phẩm'));
         $show->field('name', __('Tên sản phẩm'));
         $show->field('video', __('Video'));
+        $show->field('video',__('Video'))->display(function ($video) {
+            return " <video width='320' height='240' controls> <source src=$video type='video / mp4'> </video>";
+    });
+
         $show->field('image', __('Hình ảnh'))->image();
         $show->field('description', __('Mô tả'));
         $show->field('detail', __('Chi tiết sản phẩm'));
@@ -112,16 +116,15 @@ class AProductController extends AdminController
         if ($form->isEditing()) {
             $id = request()->route()->parameter('product');
             $branchId = $form->model()->find($id)->getOriginal("branch_id");
-            $productGroup=(new UtilsCommonHelper)->optionsProductGroupByBranchId($branchId);
+            $productGroup = (new UtilsCommonHelper)->optionsProductGroupByBranchId($branchId);
             $productGroupId = $form->model()->find($id)->getOriginal("product_group_id");
-            $category=(new UtilsCommonHelper)->optionsCategoryByProductGroupId($productGroupId);
+            $category = (new UtilsCommonHelper)->optionsCategoryByProductGroupId($productGroupId);
             $categoryId = $form->model()->find($id)->getOriginal("category_id");
 
             $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
             $form->select('product_group_id', __('Nhóm sản phẩm'))->options($productGroup)->default($productGroupId);
             $form->select('category_id', __('Loại sản phẩm'))->options($category)->default($categoryId);
-        }
-        else {
+        } else {
             $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
             $form->select('product_group_id', __('Nhóm sản phẩm'))->options()->required()->disable();
             $form->select('category_id', __('Loại sản phẩm'))->options()->required()->disable();

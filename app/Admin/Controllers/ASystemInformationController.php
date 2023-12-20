@@ -68,7 +68,7 @@ class ASystemInformationController extends AdminController
     {
         $show = new Show(CommonCodeModel::findOrFail($id));
 
-        $show->field('business.name', __('Tên doanh nghiệp'));
+//        $show->field('business.name', __('Tên doanh nghiệp'));
         $show->field('group', __('Nhóm'));
         $show->field('type', __('Thể loại'));
         $show->field('value', __('Giá trị'));
