@@ -40,6 +40,8 @@ Route::get('product/high-light-product', 'ProductController@listHighLight');
 Route::get('product/get-by-product-group/{id}', 'ProductController@getByProductGroup');
 Route::get('product/get-related-product/{id}', 'ProductController@relatedProduct');
 Route::get('product/search', 'ProductController@searchProduct');
+Route::post('product/filter-by-category', 'ProductController@filterByCategory');
+Route::get('product/detail/{id}', 'ProductController@detailProduct');
 
 //events
 Route::get('events/coming-soon', 'EventController@listComingSoonEvents');

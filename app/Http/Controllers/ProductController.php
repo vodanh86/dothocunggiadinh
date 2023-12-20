@@ -139,15 +139,8 @@ order by
     //tim kiem san pham
     public function searchProduct(Request $request)
     {
-
         $perPage = $request->input('limit', 5);
         $productName = $request->input('name', '');
-//        if ($id === null) {
-//            $error = $this->_formatBaseResponse(400, null, 'Yêu cầu nhập product group Id');
-//            return response()->json($error);
-//        } else {
-//            $product = ProductModel::find($id);
-//            $categoryId = $product->category_id;
 
         $resultTmp = DB::select("SELECT p.id as id, p.name as productName, p.image as image, p.freeShip,
            si.origin_price, si.current_price, si.sale_percent
@@ -163,6 +156,88 @@ order by
         $response = $this->_formatBaseResponseWithTotal(200, $resultTmp, $total, 'Lấy dữ liệu thành công');
         return response()->json($response);
     }
-//    }
+
+    //tim kiem san pham theo category
+    public function filterByCategory(Request $request)
+    {
+        $perPage = $request->input('limit', 10);
+        $filters = $request->input('category', []);
+
+//        $values = [];
+//        foreach ($filters as $filter) {
+//            $values[] = "'" . $filter['value'] . "'";
+//        }
+//
+//        $field = '(' . implode(',', $values) . ')';
+
+        $products = DB::table('product as p')
+            ->select('p.id as id', 'p.name as productName', 'p.image as image', 'p.freeShip', 'si.origin_price', 'si.current_price', 'si.sale_percent')
+            ->join('sell_information as si', 'p.id', '=', 'si.product_id')
+            ->join('category as ca', 'p.category_id', '=', 'ca.id')
+            ->whereIn('ca.name', array_column($filters, 'value'))
+            ->orderBy('p.updated_at', 'DESC')
+            ->take($perPage)
+            ->get();
+
+        $total = $products->count();
+
+
+        $response = $this->_formatBaseResponseWithTotal(200, $products, $total, 'Lấy dữ liệu thành công');
+        return response()->json($response);
+    }
+
+    //chi tiet san pham
+    public function detailProduct($id, Request $request)
+    {
+        $products = DB::table('product as p')
+            ->select('p.id as id',
+                'p.name as productName',
+                'p.image as image',
+                'p.video as video',
+                'p.sell_policy',
+                'p.payment_policy',
+                'p.change_policy',
+                'p.description',
+                'p.detail',
+                'p.freeShip')
+            ->where('p.id', $id )
+            ->where('p.status', 1)
+            ->get();
+
+        $socialInformation= DB::table('social_information as si')
+            ->select(	'si.id',
+                'si.platform',
+                'si.link',
+                'si.image' )
+            ->join('product as p', 'p.id', '=', 'si.product_id')
+            ->where('p.id', $id )
+            ->where('p.status', 1)
+            ->where('si.status', 1)
+            ->get();
+
+        $sellInformation= DB::table('sell_information as si')
+            ->select(	'si.id',
+                'si.type',
+                'si.origin_price',
+                'si.current_price',
+                'si.sale_percent',
+                'si.quantity' )
+            ->join('product as p', 'p.id', '=', 'si.product_id')
+            ->where('p.id', $id )
+            ->where('p.status', 1)
+            ->where('si.status', 1)
+            ->orderBy('si.current_price', 'ASC')
+            ->get();
+
+        $total = $products->count();
+
+        $productDetail= [
+            'product' => $products,
+            'socialInformation' => $socialInformation,
+            'sellInformation' => $sellInformation,
+        ];
+        $response = $this->_formatBaseResponse(200, $productDetail, 'Lấy dữ liệu thành công');
+        return response()->json($response);
+    }
 
 }
