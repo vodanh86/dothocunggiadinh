@@ -127,7 +127,7 @@ class AProductController extends AdminController
             $form->select('category_id', __('Loại sản phẩm'))->options()->required()->disable();
         }
         $form->text('name', __('Tên sản phẩm'))->required();
-        $form->text('video', __('Video'));
+        $form->file('video', __('Video'));
         $form->image('image', __('Hình ảnh'));
         $form->textarea('description', __('Mô tả'));
         $form->textarea('detail', __('Chi tiết sản phẩm'));
