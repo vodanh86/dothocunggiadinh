@@ -94,6 +94,7 @@ class ANewsController extends AdminController
         $form = new Form(new CommunicationModel);
 //        $form->hidden('business_id')->value($business->id);
         $form->hidden('type', __('Phân loại'))->value(1);
+        $form->hidden('slug');
         if ($form->isEditing()) {
             $id = request()->route()->parameter('news');
             $branchId = $form->model()->find($id)->getOriginal("branch_id");
@@ -106,13 +107,16 @@ class ANewsController extends AdminController
         $form->text('title', __('Tiêu đề'));
         $form->text('summary', __('Tóm tắt'));
         $form->textarea('content', __('Nội dung'));
-        $form->text('slug', __('Đường dẫn'));
         $form->image('image', __('Hình ảnh'));
         $form->date('public_date', __('Ngày công khai'));
         $form->text('author', __('Tác giả'));
         $form->select('is_display', __('Trạng thái hiển thị'))->options($displayOptions)->default($displayDefault);
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
-
+        $form->saving(function ($form) {
+            if (!($form->model()->id && $form->model()->title === $form->title)) {
+                $form->slug = UtilsCommonHelper::create_slug($form->title, CommunicationModel::get());
+            }
+        });
         return $form;
 
     }
