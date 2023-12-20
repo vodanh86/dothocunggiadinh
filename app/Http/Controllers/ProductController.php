@@ -200,38 +200,95 @@ order by
                 'p.description',
                 'p.detail',
                 'p.freeShip')
-            ->where('p.id', $id )
+            ->where('p.id', $id)
             ->where('p.status', 1)
             ->get();
 
-        $socialInformation= DB::table('social_information as si')
-            ->select(	'si.id',
+        $socialInformation = DB::table('social_information as si')
+            ->select('si.id',
                 'si.platform',
                 'si.link',
-                'si.image' )
+                'si.image')
             ->join('product as p', 'p.id', '=', 'si.product_id')
-            ->where('p.id', $id )
+            ->where('p.id', $id)
             ->where('p.status', 1)
             ->where('si.status', 1)
             ->get();
 
-        $sellInformation= DB::table('sell_information as si')
-            ->select(	'si.id',
+        $sellInformation = DB::table('sell_information as si')
+            ->select('si.id',
                 'si.type',
                 'si.origin_price',
                 'si.current_price',
                 'si.sale_percent',
-                'si.quantity' )
+                'si.quantity')
             ->join('product as p', 'p.id', '=', 'si.product_id')
-            ->where('p.id', $id )
+            ->where('p.id', $id)
             ->where('p.status', 1)
             ->where('si.status', 1)
             ->orderBy('si.current_price', 'ASC')
             ->get();
 
-        $total = $products->count();
+        $productDetail = [
+            'product' => $products,
+            'socialInformation' => $socialInformation,
+            'sellInformation' => $sellInformation,
+        ];
+        $response = $this->_formatBaseResponse(200, $productDetail, 'Lấy dữ liệu thành công');
+        return response()->json($response);
+    }
 
-        $productDetail= [
+    public function getBySlug(Request $request)
+    {
+        $slug = $request->input('slug', '');
+
+        $productBySlug = ProductModel::where('slug', $slug)
+            ->where('status',1)
+            ->first();
+
+        $id = $productBySlug->id;
+
+        $products = DB::table('product as p')
+            ->select('p.id as id',
+                'p.name as productName',
+                'p.image as image',
+                'p.video as video',
+                'p.sell_policy',
+                'p.payment_policy',
+                'p.change_policy',
+                'p.description',
+                'p.detail',
+                'p.freeShip')
+            ->where('p.id', $id)
+            ->where('p.status', 1)
+            ->get();
+
+        $socialInformation = DB::table('social_information as si')
+            ->select('si.id',
+                'si.platform',
+                'si.link',
+                'si.image')
+            ->join('product as p', 'p.id', '=', 'si.product_id')
+            ->where('p.id', $id)
+            ->where('p.status', 1)
+            ->where('si.status', 1)
+            ->get();
+
+        $sellInformation = DB::table('sell_information as si')
+            ->select('si.id',
+                'si.type',
+                'si.origin_price',
+                'si.current_price',
+                'si.sale_percent',
+                'si.quantity')
+            ->join('product as p', 'p.id', '=', 'si.product_id')
+            ->where('p.id', $id)
+            ->where('p.status', 1)
+            ->where('si.status', 1)
+            ->orderBy('si.current_price', 'ASC')
+            ->get();
+
+        $productDetail = [
             'product' => $products,
             'socialInformation' => $socialInformation,
             'sellInformation' => $sellInformation,
