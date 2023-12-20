@@ -32,8 +32,9 @@ class AProductController extends AdminController
         $grid->column('category.name', __('Loại sản phẩm'));
         $grid->column('name', __('Tên sản phẩm'));
 //        $grid->column('video', __('Video'));
-        $grid->column('video',__('Video2'))->display(function ($video) {
-            return " <video width='320' height='240' controls> <source src=$video type='video / mp4'> </video>";
+        $grid->column('video', __('Video2'))->display(function ($video) {
+            $urlProductGroup = env('APP_URL') . '/files/';
+            return " <video width='220' height='220' controls> <source src=$urlProductGroup.$video type='video/mp4'> </video>";
         });
         $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('description', __('Mô tả'));
@@ -74,9 +75,9 @@ class AProductController extends AdminController
         $show->field('category.name', __('Loại sản phẩm'));
         $show->field('name', __('Tên sản phẩm'));
 //        $show->field('video', __('Video'));
-        $show->field('video',__('Video2'))->display(function ($video) {
-            return " <video width='320' height='240' controls> <source src=$video type='video / mp4'> </video>";
-    });
+        $show->field('video', __('Video'))->display(function ($video) {
+            return "<video width='220' height='220' controls> <source src=$video type='video/mp4'> </video>";
+        });
 
         $show->field('image', __('Hình ảnh'))->image();
         $show->field('description', __('Mô tả'));
