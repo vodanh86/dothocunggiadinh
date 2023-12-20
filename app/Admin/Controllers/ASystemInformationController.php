@@ -47,6 +47,7 @@ class ASystemInformationController extends AdminController
         });
         $grid->model()->where('business_id', '=', Admin::user()->business_id)->orderByDesc("id")->orderBy("order");
         $grid->disableExport();
+        $grid->fixColumns(0, 0);
 
         $grid->actions(function ($actions) {
             $blockDelete = $actions->row->block_delete;

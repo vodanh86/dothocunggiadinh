@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\CommunicationModel;
+use App\Models\ProductModel;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -44,6 +45,7 @@ class ANewsController extends AdminController
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'))->sortable();
         $grid->model()->where('type', 1);
+        $grid->fixColumns(0, 0);
         return $grid;
     }
 
@@ -94,7 +96,7 @@ class ANewsController extends AdminController
         $form = new Form(new CommunicationModel);
 //        $form->hidden('business_id')->value($business->id);
         $form->hidden('type', __('Phân loại'))->value(1);
-        $form->hidden('slug');
+        $form->hidden('slug', __('Đường dẫn'));
         if ($form->isEditing()) {
             $id = request()->route()->parameter('news');
             $branchId = $form->model()->find($id)->getOriginal("branch_id");

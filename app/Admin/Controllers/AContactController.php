@@ -43,6 +43,7 @@ class AContactController extends AdminController
         $grid->column('created_at', __('Created at'))->sortable();
         $grid->column('updated_at', __('Updated at'));
 //        $grid->model()->where('type', 1)
+        $grid->fixColumns(0, 0);
         return $grid;
     }
 

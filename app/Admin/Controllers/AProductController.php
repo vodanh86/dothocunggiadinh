@@ -35,7 +35,7 @@ class AProductController extends AdminController
 //        $grid->column('video', __('Video'));
         $grid->column('video', __('Video'))->display(function ($video) {
             $urlProduct = env('APP_URL').'/storage';
-            return " <video width='220' height='220' controls> <source src=$urlProduct/$video type='video/mp4'> </video>";
+            return " <video width='200' height='200' controls> <source src=$urlProduct/$video type='video/mp4'> </video>";
         });
         $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('description', __('Mô tả'));
@@ -54,6 +54,7 @@ class AProductController extends AdminController
         });
         $grid->column('created_at', __('Created at'))->sortable();
         $grid->column('updated_at', __('Updated at'));
+        $grid->fixColumns(0, 0);
 //        $grid->model()->where('type', 1)
         return $grid;
     }

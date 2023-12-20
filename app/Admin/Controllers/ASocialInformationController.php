@@ -36,6 +36,7 @@ class ASocialInformationController extends AdminController
         });
         $grid->column('created_at', __('Created at'))->sortable();
         $grid->column('updated_at', __('Updated at'));
+        $grid->fixColumns(0, 0);
 //        $grid->model()->where('type', 1)
         return $grid;
     }

@@ -53,6 +53,17 @@ class NewsController extends Controller
         $response = $this->_formatBaseResponse(200, $resultTmp, 'Lấy dữ liệu thành công');
         return response()->json($response);
     }
+    public function getBySlug(Request $request)
+    {
+        $slug = $request->input('slug', '');
+        $news=CommunicationModel::where('slug', $slug)
+            ->where('status',1)
+            ->where('type',1)
+            ->first();
+
+        $response = $this->_formatBaseResponse(200, $news, 'Lấy dữ liệu thành công');
+        return response()->json($response);
+    }
 
 
 }

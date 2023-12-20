@@ -46,6 +46,7 @@ class AEventsController extends AdminController
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'))->sortable();
         $grid->model()->where('type', 0);
+        $grid->fixColumns(0, 0);
         return $grid;
     }
 
@@ -96,7 +97,7 @@ class AEventsController extends AdminController
 
         $form = new Form(new CommunicationModel);
         $form->hidden('type', __('Phân loại'))->value(0);
-        $form->hidden('slug');
+        $form->hidden('slug', __('Đường dẫn'));
 
         if ($form->isEditing()) {
             $id = request()->route()->parameter('event');
@@ -115,7 +116,7 @@ class AEventsController extends AdminController
         $form->date('start_date', __('Ngày bắt đầu'));
         $form->date('end_date', __('Ngày kết thúc'));
         $form->image('image', __('Hình ảnh'));
-        $form->date('public_date', __('Ngày công khai'));
+//        $form->date('public_date', __('Ngày công khai'));
         $form->text('author', __('Tác giả'));
         $form->select('is_display', __('Trạng thái hiển thị'))->options($displayOptions)->default($displayDefault);
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
