@@ -31,6 +31,7 @@ class AProductController extends AdminController
         $grid->column('productGroup.name', __('Tên nhóm sản phẩm'));
         $grid->column('category.name', __('Loại sản phẩm'));
         $grid->column('name', __('Tên sản phẩm'));
+        $grid->column('slug', __('Đường dẫn'))->qrcode();
 //        $grid->column('video', __('Video'));
         $grid->column('video', __('Video'))->display(function ($video) {
             $urlProduct = env('APP_URL').'/storage';
@@ -69,6 +70,7 @@ class AProductController extends AdminController
         $show->field('branch.branch_name', __('Tên chi nhánh'));
         $show->field('productGroup.name', __('Tên nhóm sản phẩm'));
         $show->field('name', __('Tên phân loại'));
+        $show->field('slug', __('Đường dẫn'));
         $show->field('description', __('Mô tả'));
         $show->field('branch.branch_name', __('Tên chi nhánh'));
         $show->field('productGroup.name', __('Tên nhóm sản phẩm'));
@@ -118,6 +120,7 @@ class AProductController extends AdminController
         $business = (new UtilsCommonHelper)->currentBusiness();
 
         $form = new Form(new ProductModel());
+        $form->hidden('slug', __('Đường dẫn'));
         if ($form->isEditing()) {
             $id = request()->route()->parameter('product');
             $branchId = $form->model()->find($id)->getOriginal("branch_id");
@@ -145,7 +148,11 @@ class AProductController extends AdminController
         $form->select('is_outstanding', __('Sản phẩm nổi bật'))->options($highlightOptions)->default($highlightDefault);
         $form->select('freeShip', __('Ưu đãi vận chuyển'))->options($freeShipOptions)->default($freeShipDefault);
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
-
+        $form->saving(function ($form) {
+            if (!($form->model()->id && $form->model()->name === $form->name)) {
+                $form->slug = UtilsCommonHelper::create_slug($form->name, ProductModel::get());
+            }
+        });
         $urlProductGroup = env('APP_URL') . '/api/product-group';
         $urlProductGroupId = env('APP_URL') . '/api/product-group/get-by-id';
         $urlCategory = env('APP_URL') . '/api/category/get-by-product-group';
