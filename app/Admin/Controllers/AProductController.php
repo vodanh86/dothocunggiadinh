@@ -32,9 +32,9 @@ class AProductController extends AdminController
         $grid->column('category.name', __('Loại sản phẩm'));
         $grid->column('name', __('Tên sản phẩm'));
 //        $grid->column('video', __('Video'));
-        $grid->column('video', __('Video2'))->display(function ($video) {
-            $urlProductGroup = env('APP_URL') . '/files/';
-            return " <video width='220' height='220' controls> <source src=$urlProductGroup.$video type='video/mp4'> </video>";
+        $grid->column('video', __('Video'))->display(function ($video) {
+            $urlProductGroup = env('APP_URL');
+            return " <video width='220' height='220' controls> <source src=$urlProductGroup/$video type='video/mp4'> </video>";
         });
         $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('description', __('Mô tả'));
