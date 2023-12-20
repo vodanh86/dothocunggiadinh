@@ -76,7 +76,8 @@ class AProductController extends AdminController
         $show->field('name', __('Tên sản phẩm'));
 //        $show->field('video', __('Video'));
         $show->field('video', __('Video'))->display(function ($video) {
-            return "<video width='220' height='220' controls> <source src=$video type='video/mp4'> </video>";
+            $urlProductGroup = env('APP_URL/storage');
+            return " <video width='220' height='220' controls> <source src=$urlProductGroup/$video type='video/mp4'> </video>";
         });
 
         $show->field('image', __('Hình ảnh'))->image();
