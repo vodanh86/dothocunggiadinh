@@ -38,11 +38,11 @@ class AProductController extends AdminController
             return " <video width='200' height='200' controls> <source src=$urlProduct/$video type='video/mp4'> </video>";
         });
         $grid->column('image', __('Hình ảnh'))->image();
-        $grid->column('description', __('Mô tả'));
-        $grid->column('detail', __('Chi tiết sản phẩm'));
-        $grid->column('sell_policy', __('Chính sách bán hàng'));
-        $grid->column('payment_policy', __('Chính sách thanh toán'));
-        $grid->column('change_policy', __('Chính sách đổi trả'));
+        $grid->column('description', __('Mô tả'))->textarea();
+        $grid->column('detail', __('Chi tiết sản phẩm'))->textarea();
+        $grid->column('sell_policy', __('Chính sách bán hàng'))->textarea();
+        $grid->column('payment_policy', __('Chính sách thanh toán'))->textarea();
+        $grid->column('change_policy', __('Chính sách đổi trả'))->textarea();
         $grid->column('is_outstanding', __('Sản phẩm nổi bật'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Highlight", "grid");
         });
