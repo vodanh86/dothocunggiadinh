@@ -202,7 +202,8 @@ order by
                 'p.freeShip')
             ->where('p.id', $id)
             ->where('p.status', 1)
-            ->get();
+//            ->get()
+            ->first();
 
         $socialInformation = DB::table('social_information as si')
             ->select('si.id',
@@ -243,7 +244,7 @@ order by
         $slug = $request->input('slug', '');
 
         $productBySlug = ProductModel::where('slug', $slug)
-            ->where('status',1)
+            ->where('status', 1)
             ->first();
 
         $id = $productBySlug->id;
