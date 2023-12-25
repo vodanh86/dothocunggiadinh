@@ -56,6 +56,14 @@ class UtilsCommonHelper
         }
         return ProductGroupModel::all()->where('status', 1)->pluck('name', 'id');
     }
+    public static function findAllProductGroup()
+    {
+        return ProductGroupModel::all()->where('status', 1)->pluck('name', 'id');
+    }
+    public static function findAllProduct()
+    {
+        return ProductModel::all()->where('status', 1)->pluck('name', 'id');
+    }
 
     public static function optionsCategoryByProductGroupId($productGroupId)
     {
