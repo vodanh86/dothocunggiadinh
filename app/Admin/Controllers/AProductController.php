@@ -143,7 +143,7 @@ class AProductController extends AdminController
         $form->image('image', __('Hình ảnh'));
         $form->textarea('description', __('Mô tả'));
         $form->textarea('detail', __('Chi tiết sản phẩm'));
-        $form->textarea('sell_policy', __('Chính sách bán hàng'));
+        $form->textarea('sell_policy', __('Chính sách giao hàng'));
         $form->textarea('payment_policy', __('Chính sách thanh toán'));
         $form->textarea('change_policy', __('Chính sách đổi trả'));
         $form->select('is_outstanding', __('Sản phẩm nổi bật'))->options($highlightOptions)->default($highlightDefault);

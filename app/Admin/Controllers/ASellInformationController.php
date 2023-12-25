@@ -17,7 +17,7 @@ class ASellInformationController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Thông tin bán hàng';
+    protected $title = 'Sản phẩm chi tiết';
 
     /**
      * Make a grid builder.
