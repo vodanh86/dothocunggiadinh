@@ -16,7 +16,7 @@ class ASocialInformationController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Liên kết mạng xã hội';
+    protected $title = 'Liên kết thương mại điện tử';
 
     /**
      * Make a grid builder.

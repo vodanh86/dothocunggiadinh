@@ -16,7 +16,7 @@ class AContactController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Quản lý form đăng ký tư vấn';
+    protected $title = 'Quản lý đăng ký tư vấn';
 
     /**
      * Make a grid builder.
