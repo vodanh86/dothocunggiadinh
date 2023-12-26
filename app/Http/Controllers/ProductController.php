@@ -209,12 +209,17 @@ order by
                 'p.change_policy',
                 'p.description',
                 'p.detail',
-                'p.tags',)
+                'p.tags')
             ->where('p.id', $id)
             ->where('p.status', 1)
 //            ->get()
             ->first();
 
+
+        if($products===null){
+            $response = $this->_formatBaseResponse(200, null, 'Lấy dữ liệu thất bại');
+            return response()->json($response);
+        }
         $socialInformation = DB::table('social_information as si')
             ->select('si.id',
                 'si.platform',
@@ -258,7 +263,8 @@ order by
             ->where('status', 1)
             ->first();
         if($productBySlug===null){
-
+            $response = $this->_formatBaseResponse(200, null, 'Lấy dữ liệu thất bại');
+            return response()->json($response);
         }
         $id = $productBySlug->id;
 
