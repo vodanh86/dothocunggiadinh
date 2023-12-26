@@ -27,9 +27,10 @@ class ASellInformationController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new SellInformationModel());
-        $grid->column('branch.branch_name', __('Tên chi nhánh'));
+//        $grid->column('branch.branch_name', __('Tên chi nhánh'));
         $grid->column('product.name', __('Tên sản phẩm'));
         $grid->column('type', __('Phân loại'));
+        $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('origin_price', __('Giá ban đầu'));
         $grid->column('current_price', __('Giá hiện tại'));
         $grid->column('sale_percent', __('Tỉ lệ giảm (%)'))->display(function ($percent){
@@ -55,9 +56,10 @@ class ASellInformationController extends AdminController
     protected function detail($id)
     {
         $show = new Show(SellInformationModel::findOrFail($id));
-        $show->field('branch.branch_name', __('Tên chi nhánh'));
+//        $show->field('branch.branch_name', __('Tên chi nhánh'));
         $show->field('product.name', __('Tên sản phẩm'));
         $show->field('type', __('Phân loại'));
+        $show->field('image', __('Hình ảnh'))->image();
         $show->field('origin_price', __('Giá ban đầu'));
         $show->field('current_price', __('Giá hiện tại'));
         $show->field('sale_percent', __('Tỉ lệ giảm (%)'));
@@ -90,13 +92,14 @@ class ASellInformationController extends AdminController
             $product = (new UtilsCommonHelper)->optionsProductByBranchId($branchId);
             $productId = $form->model()->find($id)->getOriginal("product_id");
 
-            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
+//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
             $form->select('product_id', __('Tên sản phẩm'))->options($product)->default($productId);
         } else {
-            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
+//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
             $form->select('product_id', __('Tên sản phẩm'))->options()->required()->disable();
         }
         $form->text('type', __('Phân loại'))->required();
+        $form->image('image', __('Hình ảnh'));
         $form->currency('origin_price', __('Giá ban đầu'))->symbol('VND')->required();
         $form->currency('current_price', __('Giá hiện tại'))->symbol('VND')->required()->readonly();
         $form->rate('sale_percent', __('Tỉ lệ giảm (%)'))->default(0)->required();
