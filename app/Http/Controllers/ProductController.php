@@ -41,7 +41,7 @@ class ProductController extends Controller
     {
         $perPage = $request->input('limit', 5);
         $resultTmp = DB::select("
-    SELECT p.id as id, p.name as productName, p.image as image, p.freeShip,
+    SELECT p.id as id, p.name as productName, p.slug, p.image as image, p.freeShip,
            si.origin_price, si.current_price, si.sale_percent
     FROM product p
     INNER JOIN sell_information si ON p.id = si.product_id
@@ -66,6 +66,7 @@ class ProductController extends Controller
             $resultTmp = DB::select("select
 	p.id as id,
 	p.name as productName,
+	p.slug,
 	p.image as image,
 	p.freeShip,
 	si.origin_price ,
@@ -101,6 +102,7 @@ order by
             $resultTmp = DB::select("select
 	p.id as id,
 	p.name as productName,
+    p.slug,
 	p.image as image,
 	p.freeShip,
 	si.origin_price ,
@@ -142,7 +144,7 @@ order by
         $perPage = $request->input('limit', 5);
         $productName = $request->input('name', '');
 
-        $resultTmp = DB::select("SELECT p.id as id, p.name as productName, p.image as image, p.freeShip,
+        $resultTmp = DB::select("SELECT p.id as id, p.name as productName, p.qr_code, p.slug, p.image as image, p.freeShip,
            si.origin_price, si.current_price, si.sale_percent
     FROM product p
     INNER JOIN sell_information si ON p.id = si.product_id
@@ -171,7 +173,7 @@ order by
 //        $field = '(' . implode(',', $values) . ')';
 
         $products = DB::table('product as p')
-            ->select('p.id as id', 'p.name as productName', 'p.image as image', 'p.freeShip', 'si.origin_price', 'si.current_price', 'si.sale_percent')
+            ->select('p.id as id', 'p.name as productName','p.qr_code', 'p.slug', 'p.image as image', 'p.freeShip', 'si.origin_price', 'si.current_price', 'si.sale_percent')
             ->join('sell_information as si', 'p.id', '=', 'si.product_id')
             ->join('category as ca', 'p.category_id', '=', 'ca.id')
             ->whereIn('ca.name', array_column($filters, 'value'))
@@ -192,14 +194,22 @@ order by
         $products = DB::table('product as p')
             ->select('p.id as id',
                 'p.name as productName',
+                'p.slug as slug',
+                'p.qr_code as qrCode',
                 'p.image as image',
+                'p.image2 as image2',
+                'p.image3 as image3',
+                'p.image4 as image4',
+                'p.image5 as image5',
+                'p.image6 as image6',
+                'p.image7 as image7',
                 'p.video as video',
                 'p.sell_policy',
                 'p.payment_policy',
                 'p.change_policy',
                 'p.description',
                 'p.detail',
-                'p.freeShip')
+                'p.tags',)
             ->where('p.id', $id)
             ->where('p.status', 1)
 //            ->get()
@@ -219,6 +229,7 @@ order by
         $sellInformation = DB::table('sell_information as si')
             ->select('si.id',
                 'si.type',
+                'si.image',
                 'si.origin_price',
                 'si.current_price',
                 'si.sale_percent',
@@ -246,20 +257,30 @@ order by
         $productBySlug = ProductModel::where('slug', $slug)
             ->where('status', 1)
             ->first();
+        if($productBySlug===null){
 
+        }
         $id = $productBySlug->id;
 
         $products = DB::table('product as p')
             ->select('p.id as id',
                 'p.name as productName',
+                'p.slug as slug',
+                'p.qr_code as qrCode',
                 'p.image as image',
+                'p.image2 as image2',
+                'p.image3 as image3',
+                'p.image4 as image4',
+                'p.image5 as image5',
+                'p.image6 as image6',
+                'p.image7 as image7',
                 'p.video as video',
                 'p.sell_policy',
                 'p.payment_policy',
                 'p.change_policy',
                 'p.description',
                 'p.detail',
-                'p.freeShip')
+                'p.tags')
             ->where('p.id', $id)
             ->where('p.status', 1)
             ->get();
@@ -278,6 +299,7 @@ order by
         $sellInformation = DB::table('sell_information as si')
             ->select('si.id',
                 'si.type',
+                'si.image',
                 'si.origin_price',
                 'si.current_price',
                 'si.sale_percent',

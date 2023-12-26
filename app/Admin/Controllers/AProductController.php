@@ -30,7 +30,8 @@ class AProductController extends AdminController
         $grid->column('productGroup.name', __('Tên nhóm sản phẩm'));
         $grid->column('category.name', __('Loại sản phẩm'));
         $grid->column('name', __('Tên sản phẩm'));
-        $grid->column('slug', __('Đường dẫn'))->qrcode();
+        $grid->column('slug', __('Đường dẫn'));
+        $grid->column('qr_code', __('Đường dẫn QR Code'))->qrcode();
 //        $grid->column('video', __('Video'));
         $grid->column('video', __('Video'))->display(function ($video) {
             $urlProduct = env('APP_URL').'/storage';
@@ -75,7 +76,8 @@ class AProductController extends AdminController
         $show = new Show(ProductModel::findOrFail($id));
         $show->field('productGroup.name', __('Tên nhóm sản phẩm'));
         $show->field('name', __('Tên phân loại'));
-        $show->field('slug', __('Đường dẫn QR Code'));
+        $show->field('slug', __('Đường dẫn'));
+        $show->field('qr_code', __('Đường dẫn QR Code'));
         $show->field('description', __('Mô tả'));
         $show->field('productGroup.name', __('Tên nhóm sản phẩm'));
         $show->field('category.name', __('Loại sản phẩm'));
@@ -128,6 +130,7 @@ class AProductController extends AdminController
 
         $form = new Form(new ProductModel());
         $form->hidden('slug', __('Đường dẫn'));
+        $form->hidden('qr_code', __('Đường dẫn'));
         $productGroup = (new UtilsCommonHelper)->findAllProductGroup();
         if ($form->isEditing()) {
             $id = request()->route()->parameter('product');
@@ -161,7 +164,8 @@ class AProductController extends AdminController
             $urlFrontEnd = env('FRONT_END_PRODUCT_URL');
             if (!($form->model()->id && $form->model()->name === $form->name)) {
                 $slugConvert = UtilsCommonHelper::create_slug($form->name, ProductModel::get());
-                $form->slug = $urlFrontEnd.$slugConvert;
+                $form->slug = $slugConvert;
+                $form->qr_code = $urlFrontEnd.$slugConvert;
             }
         });
         $urlProductGroup = env('APP_URL') . '/api/product-group';
