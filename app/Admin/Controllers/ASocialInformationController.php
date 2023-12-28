@@ -75,7 +75,7 @@ class ASocialInformationController extends AdminController
             $form->select('product_id', __('Tên sản phẩm'))->options($product)->default($productId);
         }
         else {
-            $form->select('product_id', __('Tên sản phẩm'))->options()->required()->disable();
+            $form->select('product_id', __('Tên sản phẩm'))->options($product)->required();
         }
         $form->text('platform', __('Nền tảng'));
         $form->text('link', __('Link sản phẩm'));

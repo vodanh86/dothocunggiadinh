@@ -84,19 +84,15 @@ class ASellInformationController extends AdminController
         $statusDefault = $statusOptions->keys()->first();
         $branchs = (new UtilsCommonHelper)->optionsBranch();
         $business = (new UtilsCommonHelper)->currentBusiness();
+        $product=(new UtilsCommonHelper)->findAllProduct();
 
         $form = new Form(new SellInformationModel);
         if ($form->isEditing()) {
             $id = request()->route()->parameter('sell_information');
-            $branchId = $form->model()->find($id)->getOriginal("branch_id");
-            $product = (new UtilsCommonHelper)->optionsProductByBranchId($branchId);
             $productId = $form->model()->find($id)->getOriginal("product_id");
-
-//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
             $form->select('product_id', __('Tên sản phẩm'))->options($product)->default($productId);
         } else {
-//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
-            $form->select('product_id', __('Tên sản phẩm'))->options()->required()->disable();
+            $form->select('product_id', __('Tên sản phẩm'))->options($product)->required();
         }
         $form->text('type', __('Phân loại'))->required();
         $form->image('image', __('Hình ảnh'));
@@ -106,48 +102,9 @@ class ASellInformationController extends AdminController
         $form->number('quantity', __('Số lượng'))->min(0)->required();
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
 
-        $urlProduct = env('APP_URL') . '/api/product';
+//        $urlProduct = env('APP_URL') . '/api/product';
         $script = <<<EOT
         $(function() {
-            var branchSelect = $(".branch_id");
-            var productSelect = $(".product_id");
-            var productSelectDOM = document.querySelector('.product_id');
-            var optionsProduct = {};
-
-
-            branchSelect.on('change', function() {
-
-                productSelect.empty();
-                optionsProduct = {};
-
-                var selectedBranchId = $(this).val();
-                if(!selectedBranchId) return
-                $.get("$urlProduct", { branch_id: selectedBranchId }, function (products) {
-
-                    productSelectDOM.removeAttribute('disabled');
-                    var productActive = products.filter(function (cls) {
-                        return cls.status === 1;
-                    });
-                    $.each(productActive, function (index, cls) {
-
-                        optionsProduct[cls.id] = cls.name;
-                    });
-                    productSelect.empty();
-                    productSelect.append($('<option>', {
-                        value: '',
-                        text: ''
-                    }));
-                    $.each(optionsProduct, function (id, productName) {
-                        productSelect.append($('<option>', {
-                            value: id,
-                            text: productName
-                        }));
-                    });
-                    productSelect.trigger('change');
-                });
-            });
-
-
             var originPrice=$("#origin_price");
             var salePercent=$("#sale_percent");
             var currentPrice=$("#current_price");
