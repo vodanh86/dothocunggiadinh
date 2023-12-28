@@ -64,5 +64,8 @@ Route::get('system-information/history', 'SystemInformationController@history');
 //delivery system
 Route::get('delivery-system/all', 'DeliverySystemController@getAllDeliverySystem');
 
+//contact
+Route::post('contact/create', 'ContactController@createContactForm');
+
 
 
