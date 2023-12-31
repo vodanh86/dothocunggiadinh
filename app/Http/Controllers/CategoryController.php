@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryModel;
 use App\Models\ProductGroupModel;
+use App\Traits\ResponseFormattingTrait;
 use Illuminate\Http\Request;
 use App\Http\Models\Core\Branch;
 
 class CategoryController extends Controller
 {
+    use ResponseFormattingTrait;
     public function find(Request $request)
     {
         $branchId = $request->get('branch_id');
         return CategoryModel::where('branch_id', $branchId)->get();
     }
-    public function findByProductGroup(Request $request)
+    public function findByProductGroup($id,Request $request)
     {
-        $product_group_id = $request->get('product_group_id');
-        return CategoryModel::where('product_group_id', $product_group_id)->get();
+//        $product_group_id = $request->input('product_group_id',null);
+        $resultTmp= CategoryModel::where('product_group_id', $id)->get();
+        $total=count($resultTmp);
+        $response = $this->_formatBaseResponseWithTotal(200, $resultTmp, $total, 'Lấy dữ liệu thành công');
+        return response()->json($response);
     }
     public function getById(Request $request)
     {
