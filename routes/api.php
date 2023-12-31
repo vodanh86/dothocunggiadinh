@@ -28,7 +28,7 @@ Route::get('product-group/get-by-id', 'ProductGroupController@getById');
 
 //category
 Route::get('category', 'CategoryController@find');
-Route::get('category/get-by-product-group', 'CategoryController@findByProductGroup');
+Route::get('category/get-by-product-group/{id}', 'CategoryController@findByProductGroup');
 Route::get('category/all', 'CategoryController@getAll');
 Route::get('category/get-by-id', 'CategoryController@getById');
 
