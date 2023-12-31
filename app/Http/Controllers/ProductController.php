@@ -54,10 +54,6 @@ class ProductController extends Controller
 
     public function getByProductGroup($id, Request $request)
     {
-//        $productGroupId = $request->input('productGroup');
-//        if($id===null){
-//            dd($id);
-//        }
         $perPage = $request->input('limit', 10);
         if ($id === null) {
             $error = $this->_formatBaseResponse(400, null, 'Yêu cầu nhập product group Id');
@@ -144,7 +140,7 @@ order by
         $perPage = $request->input('limit', 5);
         $productName = $request->input('name', '');
 
-        $resultTmp = DB::select("SELECT p.id as id, p.name as productName, p.qr_code, p.slug, p.image as image, p.freeShip,
+        $resultTmp = DB::select("SELECT p.category_id as categoryId, p.id as id, p.name as productName, p.qr_code, p.slug, p.image as image, p.freeShip,
            si.origin_price, si.current_price, si.sale_percent
     FROM product p
     INNER JOIN sell_information si ON p.id = si.product_id
