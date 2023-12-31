@@ -140,9 +140,9 @@ order by
         $perPage = $request->input('limit', 5);
         $productName = $request->input('name', '');
 
-        $resultTmp = DB::select("SELECT p.category_id as categoryId, p.id as id, p.name as productName, p.qr_code, p.slug, p.image as image, p.freeShip,
+        $resultTmp = DB::select("SELECT pg.id  as productGroupId, p.id as id, p.name as productName, p.qr_code, p.slug, p.image as image, p.freeShip,
            si.origin_price, si.current_price, si.sale_percent
-    FROM product p
+    FROM product p inner join category  ca on p.category_id=ca.id inner join product_group pg on ca.product_group_id=pg.id
     INNER JOIN sell_information si ON p.id = si.product_id
     WHERE p.name like ?
     ORDER BY p.updated_at DESC
