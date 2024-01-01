@@ -77,7 +77,8 @@ class ASocialInformationController extends AdminController
         else {
             $form->select('product_id', __('Tên sản phẩm'))->options($product)->required();
         }
-        $form->text('platform', __('Nền tảng'));
+//        $form->text('platform', __('Nền tảng'));
+        $form->select('platform', __('Nền tảng'))->options(['Shopee' => 'Shopee', 'Lazada' => 'Lazada', 'Tiktok' => 'Tiktok']);
         $form->text('link', __('Link sản phẩm'));
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
         return $form;
