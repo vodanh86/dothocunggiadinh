@@ -41,11 +41,11 @@ class ProductController extends Controller
     {
         $perPage = $request->input('limit', 5);
         $resultTmp = DB::select("
-    SELECT p.id as id, p.name as productName, p.slug, p.image as image, p.freeShip,
+     SELECT p.id as id, p.name as productName, p.slug, p.image as image, p.freeShip,
            si.origin_price, si.current_price, si.sale_percent
     FROM product p
     INNER JOIN sell_information si ON p.id = si.product_id
-    WHERE p.is_outstanding = 1
+    WHERE p.is_outstanding = 1 group by p.id
     ORDER BY p.updated_at DESC
     LIMIT :perPage", ['perPage' => $perPage]);
         $response = $this->_formatBaseResponse(200, $resultTmp, 'Lấy dữ liệu thành công');
