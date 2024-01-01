@@ -41,12 +41,20 @@ class ProductController extends Controller
     {
         $perPage = $request->input('limit', 5);
         $resultTmp = DB::select("
-     SELECT p.id as id, p.name as productName, p.slug, p.image as image, p.freeShip,
-           si.origin_price, si.current_price, si.sale_percent
+    SELECT
+        p.id as id,
+        MAX(p.name) as productName,
+        MAX(p.slug) as slug,
+        MAX(p.image) as image,
+        MAX(p.freeShip) as freeShip,
+        MAX(si.origin_price) as origin_price,
+        MAX(si.current_price) as current_price,
+        MAX(si.sale_percent) as sale_percent
     FROM product p
     INNER JOIN sell_information si ON p.id = si.product_id
     WHERE p.is_outstanding = 1
-    ORDER BY p.updated_at DESC
+    GROUP BY p.id
+    ORDER BY MAX(p.updated_at) DESC
     LIMIT :perPage", ['perPage' => $perPage]);
         $response = $this->_formatBaseResponse(200, $resultTmp, 'Lấy dữ liệu thành công');
         return response()->json($response);
