@@ -24,6 +24,11 @@ class CategoryController extends Controller
         $response = $this->_formatBaseResponseWithTotal(200, $resultTmp, $total, 'Lấy dữ liệu thành công');
         return response()->json($response);
     }
+    public function getByProductGroup(Request $request)
+    {
+        $product_group_id = $request->get('product_group_id');
+        return  CategoryModel::where('product_group_id', $product_group_id)->get();
+    }
     public function getById(Request $request)
     {
         $id = $request->get('q');
