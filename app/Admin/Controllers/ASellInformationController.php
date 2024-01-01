@@ -33,8 +33,8 @@ class ASellInformationController extends AdminController
         $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('origin_price', __('Giá ban đầu'));
         $grid->column('current_price', __('Giá hiện tại'));
-        $grid->column('sale_percent', __('Tỉ lệ giảm (%)'))->display(function ($percent){
-            return UtilsCommonHelper::percentFormatter($percent,"grid");
+        $grid->column('sale_percent', __('Tỉ lệ giảm (%)'))->display(function ($percent) {
+            return UtilsCommonHelper::percentFormatter($percent, "grid");
         });
         $grid->column('quantity', __('Số lượng'));
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
@@ -84,7 +84,7 @@ class ASellInformationController extends AdminController
         $statusDefault = $statusOptions->keys()->first();
         $branchs = (new UtilsCommonHelper)->optionsBranch();
         $business = (new UtilsCommonHelper)->currentBusiness();
-        $product=(new UtilsCommonHelper)->findAllProduct();
+        $product = (new UtilsCommonHelper)->findAllProduct();
 
         $form = new Form(new SellInformationModel);
         if ($form->isEditing()) {
@@ -105,10 +105,10 @@ class ASellInformationController extends AdminController
 //        $urlProduct = env('APP_URL') . '/api/product';
         $script = <<<EOT
         $(function() {
-            var originPrice=$("#origin_price");
-            var salePercent=$("#sale_percent");
-            var currentPrice=$("#current_price");
-            var salePercentValue=0;
+            var originPrice = $("#origin_price");
+            var salePercent = $("#sale_percent");
+            var currentPrice = $("#current_price");
+            var salePercentValue = 0;
             var originPriceValue;
 
             function parseFormattedNumber(num) {
@@ -116,30 +116,23 @@ class ASellInformationController extends AdminController
             };
 
             originPrice.on('change', function() {
-                var originPriceValue = parseFormattedNumber($(this).val());
-                salePercent.on('change', function() {
-                    salePercentValue = parseFormattedNumber($(this).val());
-                    var valueTotal = originPriceValue * (1 - salePercentValue/100);
-                    currentPrice.val(valueTotal);
-                });
-                currentPrice.val($(this).val() * (1 - salePercentValue/100));
+                originPriceValue = parseFormattedNumber($(this).val());
+                updateCurrentPrice();
             });
 
             salePercent.on('change', function() {
-                var salePercentValue = parseFormattedNumber($(this).val());
-                console.log('salePercentValue: '+salePercentValue)
-                originPriceValue=parseFormattedNumber(originPrice.val());
-                originPrice.on('change', function() {
-                    originPriceValue = parseFormattedNumber($(this).val());
-                    var valueTotal = originPriceValue * (1 - salePercentValue/100);
-                    currentPrice.val(valueTotal);
-                });
-
-
-                currentPrice.val(originPriceValue * (1 - salePercentValue/100));
+                salePercentValue = parseFormattedNumber($(this).val());
+                updateCurrentPrice();
             });
 
+            function updateCurrentPrice() {
+                var valueTotal = originPriceValue * (1 - salePercentValue / 100);
+                currentPrice.val(valueTotal);
+                console.log(currentPrice.val());
+            }
+
         });
+
         EOT;
         Admin::script($script);
         return $form;
