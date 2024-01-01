@@ -45,7 +45,7 @@ class ProductController extends Controller
            si.origin_price, si.current_price, si.sale_percent
     FROM product p
     INNER JOIN sell_information si ON p.id = si.product_id
-    WHERE p.is_outstanding = 1 group by p.id
+    WHERE p.is_outstanding = 1
     ORDER BY p.updated_at DESC
     LIMIT :perPage", ['perPage' => $perPage]);
         $response = $this->_formatBaseResponse(200, $resultTmp, 'Lấy dữ liệu thành công');
