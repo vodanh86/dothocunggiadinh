@@ -127,6 +127,7 @@ class ASellInformationController extends AdminController
 
             function updateCurrentPrice() {
                 originPriceValue=parseFormattedNumber(originPrice.val());
+                salePercentValue = parseFormattedNumber(salePercent.val());
                 var valueTotal = originPriceValue * (1 - salePercentValue / 100);
                 currentPrice.val(valueTotal);
             }
