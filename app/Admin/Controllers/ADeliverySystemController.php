@@ -81,7 +81,6 @@ class ADeliverySystemController extends AdminController
         $form = new Form(new DeliverySystemModel());
         if ($form->isEditing()) {
             $id = request()->route()->parameter('delivery_system');
-            $branchId = $form->model()->find($id)->getOriginal("branch_id");
         }
         $form->text('name', __('Tên hệ thống phân phối'));
         $form->text('phone_number', __('Số điện thoại'));
