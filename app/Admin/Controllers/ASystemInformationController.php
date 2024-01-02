@@ -29,7 +29,6 @@ class ASystemInformationController extends AdminController
 
         $grid = new Grid(new CommonCodeModel());
 
-        $grid->column('business.name', __('Tên doanh nghiệp'));
         $grid->column('group', __('Nhóm'))->filter('like');
         $grid->column('type', __('Thể loại'))->filter('like');
         $grid->column('value', __('Giá trị'));
@@ -69,7 +68,6 @@ class ASystemInformationController extends AdminController
     {
         $show = new Show(CommonCodeModel::findOrFail($id));
 
-//        $show->field('business.name', __('Tên doanh nghiệp'));
         $show->field('group', __('Nhóm'));
         $show->field('type', __('Thể loại'));
         $show->field('value', __('Giá trị'));
@@ -88,7 +86,7 @@ class ASystemInformationController extends AdminController
             $show->panel()
                 ->tools(function ($tools) {
                     $tools->disableDelete();
-                });;
+                });
         }
 
         return $show;
@@ -101,12 +99,10 @@ class ASystemInformationController extends AdminController
      */
     protected function form()
     {
-        $business = (new UtilsCommonHelper)->currentBusiness();
         $statusOptions = (new UtilsCommonHelper)->commonCode("Core", "Status", "description_vi", "value");
         $statusDefault = $statusOptions->keys()->first();
 
         $form = new Form(new CommonCodeModel());
-        $form->hidden('business_id')->value($business->id);
         if ($form->isEditing()) {
             $form->tools(function (Form\Tools $tools) {
                 $tools->disableDelete();
@@ -125,17 +121,6 @@ class ASystemInformationController extends AdminController
         $form->text('order', __('Sắp xếp'));
         $form->select('block_delete', __('Chặn xoá'))->options(array(0 => 'Không', 1 => 'Có'))->required();
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault)->required();
-
-        $url = env('APP_URL') . '/api/business';
-        $script = <<<EOT
-        $(function() {
-            var businessId = $(".business_id").val();
-            $.get("$url",{q : businessId}, function (data) {
-                $("#name_business").val(data.name);
-            });
-        });
-        EOT;
-        Admin::script($script);
 
         return $form;
     }

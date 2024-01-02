@@ -26,7 +26,6 @@ class AContactController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new ContactModel());
-//        dd(Admin::user()->username);
         $grid->column('name', __('Họ và tên'));
         $grid->column('phone_number', __('Số điện thoại'));
         $grid->column('email', __('Email'));
@@ -83,18 +82,9 @@ class AContactController extends AdminController
         $statusDefault = $statusOptions->keys()->first();
         $replyDefault = $replyOptions->keys()->first();
 
-        $branchs = (new UtilsCommonHelper)->optionsBranch();
-        $business = (new UtilsCommonHelper)->currentBusiness();
-
         $form = new Form(new ContactModel());
-//        $form->hidden('business_id')->value($business->id);
         if ($form->isEditing()) {
             $id = request()->route()->parameter('contact');
-//            $branchId = $form->model()->find($id)->getOriginal("branch_id");
-//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
-        }
-        else {
-//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
         }
         $form->text('name', __('Họ và tên'));
         $form->mobile('phone_number', __('Số điện thoại'));

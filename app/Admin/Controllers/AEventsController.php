@@ -26,8 +26,6 @@ class AEventsController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new CommunicationModel);
-//        dd(Admin::user()->username);
-//        $grid->column('branch.branch_name', __('Tên chi nhánh'));
         $grid->column('title', __('Tiêu đề'));
         $grid->column('summary', __('Tóm tắt'));
         $grid->column('content', __('Nội dung'))->textarea();
@@ -101,18 +99,11 @@ class AEventsController extends AdminController
 
         if ($form->isEditing()) {
             $id = request()->route()->parameter('event');
-//            dd(request()->route());
             $branchId = $form->model()->find($id)->getOriginal("branch_id");
-//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
         }
-//        else {
-//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
-//        }
-
         $form->text('title', __('Tiêu đề'));
         $form->text('summary', __('Tóm tắt'));
         $form->textarea('content', __('Nội dung'));
-//        $form->hidden('slug', __('Đường dẫn'))->value(UtilsCommonHelper::create_slug());
         $form->date('start_date', __('Ngày bắt đầu'));
         $form->date('end_date', __('Ngày kết thúc'));
         $form->image('image', __('Hình ảnh'));

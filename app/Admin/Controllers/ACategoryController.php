@@ -28,8 +28,6 @@ class ACategoryController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new CategoryModel());
-//        dd(Admin::user()->username);
-//        $grid->column('branch.branch_name', __('Tên chi nhánh'));
         $grid->column('productGroup.name', __('Tên loại sản phẩm'));
         $grid->column('name', __('Tên phân loại'));
         $grid->column('description', __('Mô tả'));
@@ -52,7 +50,6 @@ class ACategoryController extends AdminController
     protected function detail($id)
     {
         $show = new Show(CategoryModel::findOrFail($id));
-//        $show->field('branch.branch_name', __('Tên chi nhánh'));
         $show->field('productGroup.name', __('Tên loại sản phẩm'));
         $show->field('name', __('Tên phân loại'));
         $show->field('description', __('Mô tả'));

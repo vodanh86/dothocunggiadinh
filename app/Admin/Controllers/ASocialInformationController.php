@@ -4,7 +4,6 @@ namespace App\Admin\Controllers;
 
 use App\Models\SocialInformationModel;
 use Encore\Admin\Controllers\AdminController;
-use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
@@ -35,7 +34,6 @@ class ASocialInformationController extends AdminController
         $grid->column('created_at', __('Created at'))->sortable();
         $grid->column('updated_at', __('Updated at'));
         $grid->fixColumns(0, 0);
-//        $grid->model()->where('type', 1)
         return $grid;
     }
 
@@ -77,7 +75,6 @@ class ASocialInformationController extends AdminController
         else {
             $form->select('product_id', __('Tên sản phẩm'))->options($product)->required();
         }
-//        $form->text('platform', __('Nền tảng'));
         $form->select('platform', __('Nền tảng'))->options(['Shopee' => 'Shopee', 'Lazada' => 'Lazada', 'Tiktok' => 'Tiktok']);
         $form->text('link', __('Link sản phẩm'));
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);

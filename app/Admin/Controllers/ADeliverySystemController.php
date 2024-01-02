@@ -27,8 +27,6 @@ class ADeliverySystemController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new DeliverySystemModel());
-//        dd(Admin::user()->username);
-//        $grid->column('branch.branch_name', __('Tên chi nhánh'));
         $grid->column('name', __('Tên hệ thống phân phối'));
         $grid->column('phone_number', __('Số điện thoại'));
         $grid->column('email', __('Email'));
@@ -41,7 +39,6 @@ class ADeliverySystemController extends AdminController
         });
         $grid->column('created_at', __('Created at'))->sortable();
         $grid->column('updated_at', __('Updated at'));
-//        $grid->model()->where('type', 1)
         $grid->fixColumns(0, 0);
         return $grid;
     }
@@ -55,7 +52,6 @@ class ADeliverySystemController extends AdminController
     protected function detail($id)
     {
         $show = new Show(DeliverySystemModel::findOrFail($id));
-//        $show->field('branch.branch_name', __('Tên chi nhánh'));
         $show->field('name', __('Tên hệ thống phân phối'));
         $show->field('phone_number', __('Số điện thoại'));
         $show->field('email', __('Email'));
@@ -82,19 +78,11 @@ class ADeliverySystemController extends AdminController
         $statusOptions = (new UtilsCommonHelper)->commonCode("Core", "Status", "description_vi", "value");
         $statusDefault = $statusOptions->keys()->first();
 
-        $branchs = (new UtilsCommonHelper)->optionsBranch();
-        $business = (new UtilsCommonHelper)->currentBusiness();
-
         $form = new Form(new DeliverySystemModel());
-//        $form->hidden('business_id')->value($business->id);
         if ($form->isEditing()) {
             $id = request()->route()->parameter('contact');
             $branchId = $form->model()->find($id)->getOriginal("branch_id");
-//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
         }
-//        else {
-//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
-//        }
         $form->text('name', __('Tên hệ thống phân phối'));
         $form->text('phone_number', __('Số điện thoại'));
         $form->email('email', __('Email'));

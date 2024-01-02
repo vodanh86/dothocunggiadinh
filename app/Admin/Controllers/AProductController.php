@@ -32,7 +32,6 @@ class AProductController extends AdminController
         $grid->column('name', __('Tên sản phẩm'));
         $grid->column('slug', __('Đường dẫn'));
         $grid->column('qr_code', __('Đường dẫn QR Code'))->qrcode();
-//        $grid->column('video', __('Video'));
         $grid->column('video', __('Video'))->display(function ($video) {
             $urlProduct = env('APP_URL').'/storage';
             return " <video width='200' height='200' controls> <source src=$urlProduct/$video type='video/mp4'> </video>";

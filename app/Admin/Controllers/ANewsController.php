@@ -27,8 +27,6 @@ class ANewsController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new CommunicationModel);
-//        dd(Admin::user()->username);
-//        $grid->column('branch.branch_name', __('Tên chi nhánh'));
         $grid->column('title', __('Tiêu đề'));
         $grid->column('summary', __('Tóm tắt'));
         $grid->column('content', __('Nội dung'))->textarea();
@@ -90,16 +88,12 @@ class ANewsController extends AdminController
         $displayOptions = (new UtilsCommonHelper)->commonCode("Communication", "Status", "description_vi", "value");
         $statusDefault = $statusOptions->keys()->first();
         $displayDefault = $statusOptions->keys()->first();
-        $branchs = (new UtilsCommonHelper)->optionsBranch();
-        $business = (new UtilsCommonHelper)->currentBusiness();
 
         $form = new Form(new CommunicationModel);
-//        $form->hidden('business_id')->value($business->id);
         $form->hidden('type', __('Phân loại'))->value(1);
         $form->hidden('slug', __('Đường dẫn'));
         if ($form->isEditing()) {
             $id = request()->route()->parameter('news');
-            $branchId = $form->model()->find($id)->getOriginal("branch_id");
         }
 
         $form->text('title', __('Tiêu đề'));
