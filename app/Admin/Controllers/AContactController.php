@@ -30,7 +30,6 @@ class AContactController extends AdminController
         $grid->column('name', __('Họ và tên'));
         $grid->column('phone_number', __('Số điện thoại'));
         $grid->column('email', __('Email'));
-        $grid->column('address', __('Địa chỉ'));
         $grid->column('content', __('Sản phẩm quan tâm'));
         $grid->column('reply', __('Trạng thái phản hồi'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Reply", "grid");
@@ -58,7 +57,6 @@ class AContactController extends AdminController
         $show->field('name', __('Họ và tên'));
         $show->field('phone_number', __('Số điện thoại'));
         $show->field('email', __('Email'));
-        $show->field('address', __('Địa chỉ'));
         $show->field('content', __('Sản phẩm quan tâm'));
         $show->field('reply', __('Trạng thái phản hồi'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Reply", "grid");
@@ -101,7 +99,6 @@ class AContactController extends AdminController
         $form->text('name', __('Họ và tên'));
         $form->mobile('phone_number', __('Số điện thoại'));
         $form->email('email', __('Email'));
-        $form->text('address', __('Địa chỉ'));
         $form->text('content', __('Sản phẩm quan tâm'));
         $form->textarea('note', __('Ghi chú'));
         $form->select('reply', __('Trạng thái phản hồi'))->options($replyOptions)->default($replyDefault);
