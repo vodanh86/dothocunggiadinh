@@ -20,14 +20,13 @@ class UtilsCommonHelper
             return CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
-        }elseif ($group ==="Communicatio"){
+        }elseif ($group ==="Communication"){
             return CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
         }
         else {
-            $commonCode = CommonCodeModel::where('business_id', Admin::user()->business_id)
-                ->where('group', $group)
+            $commonCode = CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
             return $commonCode;
@@ -49,13 +48,6 @@ class UtilsCommonHelper
         return $commonCode ? $commonCode->$description : '';
     }
 
-    public static function optionsProductGroupByBranchId($branchId)
-    {
-        if ($branchId !== null) {
-            return ProductGroupModel::where("branch_id", $branchId)->where('status', 1)->pluck('name', 'id');
-        }
-        return ProductGroupModel::all()->where('status', 1)->pluck('name', 'id');
-    }
     public static function findAllProductGroup()
     {
         return ProductGroupModel::all()->where('status', 1)->pluck('name', 'id');
@@ -71,14 +63,6 @@ class UtilsCommonHelper
             return CategoryModel::where("product_group_id", $productGroupId)->where('status', 1)->pluck('name', 'id');
         }
         return CategoryModel::all()->where('status', 1)->pluck('name', 'id');
-    }
-
-    public static function optionsProductByBranchId($branchId)
-    {
-        if ($branchId !== null) {
-            return ProductModel::where("branch_id", $branchId)->where('status', 1)->pluck('name', 'id');
-        }
-        return ProductModel::all()->where('status', 1)->pluck('name', 'id');
     }
 
     //Kiem tra ten lai(doi lai)
@@ -107,8 +91,7 @@ class UtilsCommonHelper
                 ->first();
         } else {
             //TODO: CHECK lai
-            $commonCode = CommonCodeModel::where('business_id', Admin::user()->business_id)
-                ->where('group', $group)
+            $commonCode = CommonCodeModel::where('group', $group)
                 ->where('type', 'Status')
                 ->where('value', $result)
                 ->first();
@@ -141,11 +124,6 @@ class UtilsCommonHelper
     public static function statusDetailFormatter($status)
     {
         return self::statusFormatter($status, "Core", "detail");
-    }
-
-    public static function optionsBranch()
-    {
-        return BranchModel::where('business_id', Admin::user()->business_id)->where('status', 1)->pluck('branch_name', 'id');
     }
 
 
