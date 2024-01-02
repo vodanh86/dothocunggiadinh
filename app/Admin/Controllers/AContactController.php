@@ -27,7 +27,6 @@ class AContactController extends AdminController
     {
         $grid = new Grid(new ContactModel());
 //        dd(Admin::user()->username);
-        $grid->column('branch.branch_name', __('Tên chi nhánh'));
         $grid->column('name', __('Họ và tên'));
         $grid->column('phone_number', __('Số điện thoại'));
         $grid->column('email', __('Email'));
@@ -56,7 +55,6 @@ class AContactController extends AdminController
     protected function detail($id)
     {
         $show = new Show(ContactModel::findOrFail($id));
-        $show->field('branch.branch_name', __('Tên chi nhánh'));
         $show->field('name', __('Họ và tên'));
         $show->field('phone_number', __('Số điện thoại'));
         $show->field('email', __('Email'));
@@ -94,11 +92,11 @@ class AContactController extends AdminController
 //        $form->hidden('business_id')->value($business->id);
         if ($form->isEditing()) {
             $id = request()->route()->parameter('contact');
-            $branchId = $form->model()->find($id)->getOriginal("branch_id");
-            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
+//            $branchId = $form->model()->find($id)->getOriginal("branch_id");
+//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
         }
         else {
-            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
+//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
         }
         $form->text('name', __('Họ và tên'));
         $form->mobile('phone_number', __('Số điện thoại'));
