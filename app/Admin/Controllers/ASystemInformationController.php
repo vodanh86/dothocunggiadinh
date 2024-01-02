@@ -32,7 +32,7 @@ class ASystemInformationController extends AdminController
         $grid->column('group', __('Nhóm'))->filter('like');
         $grid->column('type', __('Thể loại'))->filter('like');
         $grid->column('value', __('Giá trị'));
-        $grid->column('description_vi', __('Mô tả tiếng việt'));
+        $grid->column('description_vi', __('Mô tả tiếng Việt'))->textarea();
         $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('order', __('Sắp xếp'));
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
@@ -45,7 +45,7 @@ class ASystemInformationController extends AdminController
             return ConstantHelper::dateFormatter($updatedAt);
         });
         $grid->disableExport();
-        $grid->fixColumns(0, 0);
+//        $grid->fixColumns(0, 0);
 
         $grid->actions(function ($actions) {
             $blockDelete = $actions->row->block_delete;
