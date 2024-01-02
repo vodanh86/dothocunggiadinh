@@ -44,7 +44,7 @@ class AProductController extends AdminController
         $grid->column('image6', __('Hình ảnh 6'))->image();
         $grid->column('image6', __('Hình ảnh 7'))->image();
         $grid->column('description', __('Mô tả'))->textarea();
-        $grid->column('detail', __('Chi tiết sản phẩm'))->textarea();
+        $grid->column('detail', __('Chi tiết sản phẩm'));
         $grid->column('sell_policy', __('Chính sách bán hàng'))->textarea();
         $grid->column('payment_policy', __('Chính sách thanh toán'))->textarea();
         $grid->column('change_policy', __('Chính sách đổi trả'))->textarea();
