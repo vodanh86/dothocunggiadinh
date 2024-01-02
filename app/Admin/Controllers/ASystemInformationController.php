@@ -44,7 +44,6 @@ class ASystemInformationController extends AdminController
         $grid->column('updated_at', __('Ngày cập nhật'))->display(function ($updatedAt) {
             return ConstantHelper::dateFormatter($updatedAt);
         });
-        $grid->model()->where('business_id', '=', Admin::user()->business_id)->orderByDesc("id")->orderBy("order");
         $grid->disableExport();
         $grid->fixColumns(0, 0);
 
