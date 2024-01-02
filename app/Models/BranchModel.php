@@ -8,10 +8,10 @@ class BranchModel extends Model
 {
     protected $table = 'core_branch';
 
-    public function business()
-    {
-        return $this->belongsTo(BusinessModel::class, 'business_id');
-    }
+//    public function business()
+//    {
+//        return $this->belongsTo(BusinessModel::class, 'business_id');
+//    }
 //    public function classes()
 //    {
 //        return $this->hasMany(EduClass::class,'branch_code');
