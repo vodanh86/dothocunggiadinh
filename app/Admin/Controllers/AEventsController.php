@@ -90,8 +90,6 @@ class AEventsController extends AdminController
         $displayOptions = (new UtilsCommonHelper)->commonCode("Communication", "Status", "description_vi", "value");
         $statusDefault = $statusOptions->keys()->first();
         $displayDefault = $statusOptions->keys()->first();
-        $branchs = (new UtilsCommonHelper)->optionsBranch();
-        $business = (new UtilsCommonHelper)->currentBusiness();
 
         $form = new Form(new CommunicationModel);
         $form->hidden('type', __('Phân loại'))->value(0);
