@@ -35,7 +35,7 @@ class AEventsController extends AdminController
         $grid->column('start_date', __('Ngày bắt đầu'));
         $grid->column('end_date', __('Ngày kết thúc'));
         $grid->column('image', __('Hình ảnh'))->image();
-        $grid->column('public_date', __('Ngày công khai'));
+//        $grid->column('public_date', __('Ngày công khai'));
         $grid->column('author', __('Tác giả'));
         $grid->column('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
@@ -68,7 +68,7 @@ class AEventsController extends AdminController
         $show->field('start_date', __('Ngày bắt đầu'));
         $show->field('end_date', __('Ngày kết thúc'));
         $show->field('image', __('Hình ảnh'))->image();
-        $show->field('public_date', __('Ngày công khai'));
+//        $show->field('public_date', __('Ngày công khai'));
         $show->field('author', __('Tác giả'));
         $show->field('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
@@ -103,11 +103,11 @@ class AEventsController extends AdminController
             $id = request()->route()->parameter('event');
 //            dd(request()->route());
             $branchId = $form->model()->find($id)->getOriginal("branch_id");
-            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
+//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
         }
-        else {
-            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
-        }
+//        else {
+//            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
+//        }
 
         $form->text('title', __('Tiêu đề'));
         $form->text('summary', __('Tóm tắt'));

@@ -34,7 +34,7 @@ class ANewsController extends AdminController
         $grid->column('content', __('Nội dung'))->textarea();
         $grid->column('slug', __('Đường dẫn'));
         $grid->column('image', __('Hình ảnh'))->image();
-        $grid->column('public_date', __('Ngày công khai'));
+//        $grid->column('public_date', __('Ngày công khai'));
         $grid->column('author', __('Tác giả'));
         $grid->column('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
@@ -65,7 +65,7 @@ class ANewsController extends AdminController
         $show->field('content', __('Nội dung'))->textarea();
         $show->field('slug', __('Đường dẫn'));
         $show->field('image', __('Hình ảnh'))->image();
-        $show->field('public_date', __('Ngày công khai'));
+//        $show->field('public_date', __('Ngày công khai'));
         $show->field('author', __('Tác giả'));
         $show->field('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
@@ -100,17 +100,13 @@ class ANewsController extends AdminController
         if ($form->isEditing()) {
             $id = request()->route()->parameter('news');
             $branchId = $form->model()->find($id)->getOriginal("branch_id");
-            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->default($branchId);
-        }
-        else {
-            $form->select('branch_id', __('Tên chi nhánh'))->options($branchs)->required();
         }
 
         $form->text('title', __('Tiêu đề'));
         $form->text('summary', __('Tóm tắt'));
         $form->textarea('content', __('Nội dung'));
         $form->image('image', __('Hình ảnh'));
-        $form->date('public_date', __('Ngày công khai'));
+//        $form->date('public_date', __('Ngày công khai'));
         $form->text('author', __('Tác giả'));
         $form->select('is_display', __('Trạng thái hiển thị'))->options($displayOptions)->default($displayDefault);
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
