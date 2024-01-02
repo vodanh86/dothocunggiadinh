@@ -27,7 +27,6 @@ class ASellInformationController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new SellInformationModel());
-//        $grid->column('branch.branch_name', __('Tên chi nhánh'));
         $grid->column('product.name', __('Tên sản phẩm'));
         $grid->column('type', __('Phân loại'));
         $grid->column('image', __('Hình ảnh'))->image();
@@ -42,7 +41,6 @@ class ASellInformationController extends AdminController
         });
         $grid->column('created_at', __('Created at'))->sortable();
         $grid->column('updated_at', __('Updated at'));
-//        $grid->model()->where('type', 1)
         $grid->fixColumns(0, 0);
         return $grid;
     }
@@ -56,7 +54,6 @@ class ASellInformationController extends AdminController
     protected function detail($id)
     {
         $show = new Show(SellInformationModel::findOrFail($id));
-//        $show->field('branch.branch_name', __('Tên chi nhánh'));
         $show->field('product.name', __('Tên sản phẩm'));
         $show->field('type', __('Phân loại'));
         $show->field('image', __('Hình ảnh'))->image();
@@ -82,8 +79,6 @@ class ASellInformationController extends AdminController
     {
         $statusOptions = (new UtilsCommonHelper)->commonCode("Core", "Status", "description_vi", "value");
         $statusDefault = $statusOptions->keys()->first();
-        $branchs = (new UtilsCommonHelper)->optionsBranch();
-        $business = (new UtilsCommonHelper)->currentBusiness();
         $product = (new UtilsCommonHelper)->findAllProduct();
 
         $form = new Form(new SellInformationModel);

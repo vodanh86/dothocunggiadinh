@@ -32,7 +32,7 @@ class NewsController extends Controller
 
     public static function getAll()
     {
-        $productGroups = CommunicationModel::query()->get();
+        $productGroups = CommunicationModel::where('type',1)->get();
         return response()->json($productGroups);
     }
 
@@ -48,7 +48,7 @@ class NewsController extends Controller
     public function latestNews(Request $request)
     {
         $perPage = $request->input('limit', 3);
-        $resultTmp = DB::select("select * from communication c where c.`type` = 1 and c.status =1 order by c.end_date desc  LIMIT :perPage", ['perPage' => $perPage]);
+        $resultTmp = DB::select("select * from communication c where c.`type` = 1 and c.status =1 and c.is_display=1 order by c.end_date desc  LIMIT :perPage", ['perPage' => $perPage]);
 
         $response = $this->_formatBaseResponse(200, $resultTmp, 'Lấy dữ liệu thành công');
         return response()->json($response);
