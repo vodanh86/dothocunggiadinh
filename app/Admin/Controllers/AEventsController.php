@@ -41,8 +41,8 @@ class AEventsController extends AdminController
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'))->sortable();
+        $grid->column('created_at', __('Ngày tạo'));
+        $grid->column('updated_at', __('Ngày cập nhật'))->sortable();
         $grid->model()->where('type', 0);
         $grid->fixColumns(0, 0);
         return $grid;
@@ -74,8 +74,8 @@ class AEventsController extends AdminController
         $show->field('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->field('created_at', __('Ngày tạo'));
+        $show->field('updated_at', __('Ngày cập nhật'));
         return $show;
     }
 
