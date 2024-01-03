@@ -27,7 +27,7 @@ class AEventsController extends AdminController
     {
         $grid = new Grid(new CommunicationModel);
         $grid->column('title', __('Tiêu đề'));
-        $grid->column('summary', __('Tóm tắt'));
+        $grid->column('summary', __('Tóm tắt'))->textarea();
         $grid->column('content', __('Nội dung'))->textarea();
         $grid->column('slug', __('Đường dẫn'));
         $grid->column('start_date', __('Ngày bắt đầu'));
@@ -61,7 +61,7 @@ class AEventsController extends AdminController
         $show->field('id', __('ID'));
         $show->field('title', __('Tiêu đề'));
         $show->field('summary', __('Tóm tắt'));
-        $show->field('content', __('Nội dung'))->textarea();
+        $show->field('content', __('Nội dung'));
         $show->field('slug', __('Đường dẫn'));
         $show->field('start_date', __('Ngày bắt đầu'));
         $show->field('end_date', __('Ngày kết thúc'));

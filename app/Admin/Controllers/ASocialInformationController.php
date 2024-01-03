@@ -27,7 +27,7 @@ class ASocialInformationController extends AdminController
         $grid = new Grid(new SocialInformationModel());
         $grid->column('product.name', __('Tên sản phẩm'));
         $grid->column('platform', __('Nền tảng'));
-        $grid->column('link', __('Link sản phẩm'));
+        $grid->column('link', __('Link sản phẩm'))->textarea();
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });

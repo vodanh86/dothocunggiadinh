@@ -27,7 +27,7 @@ class AProductController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new ProductModel());
-        $grid->column('productGroup.name', __('Tên nhóm sản phẩm'));
+        $grid->column('productGroup.name', __('Tên nhóm sản phẩm'))->textarea();
         $grid->column('category.name', __('Loại sản phẩm'));
         $grid->column('name', __('Tên sản phẩm'));
         $grid->column('slug', __('Đường dẫn'));
@@ -44,7 +44,7 @@ class AProductController extends AdminController
         $grid->column('image6', __('Hình ảnh 6'))->image();
         $grid->column('image6', __('Hình ảnh 7'))->image();
         $grid->column('description', __('Mô tả'))->textarea();
-        $grid->column('detail', __('Chi tiết sản phẩm'));
+        $grid->column('detail', __('Chi tiết sản phẩm'))->textarea();
         $grid->column('sell_policy', __('Chính sách bán hàng'))->textarea();
         $grid->column('payment_policy', __('Chính sách thanh toán'))->textarea();
         $grid->column('change_policy', __('Chính sách đổi trả'))->textarea();
