@@ -31,8 +31,8 @@ class ASocialInformationController extends AdminController
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
-        $grid->column('created_at', __('Created at'))->sortable();
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Ngày tạo'))->sortable();
+        $grid->column('updated_at', __('Ngày cập nhật'));
         $grid->fixColumns(0, 0);
         return $grid;
     }
@@ -49,8 +49,8 @@ class ASocialInformationController extends AdminController
         $show->field('product.name', __('Tên sản phẩm'));
         $show->field('platform', __('Nền tảng'));
         $show->field('link', __('Link sản phẩm'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->field('created_at', __('Ngày tạo'));
+        $show->field('updated_at', __('Ngày cập nhật'));
 
         return $show;
     }

@@ -34,8 +34,8 @@ class ACategoryController extends AdminController
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
-        $grid->column('created_at', __('Created at'))->sortable();
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('created_at', __('Ngày tạo'))->sortable();
+        $grid->column('updated_at', __('Ngày cập nhật'));
 //        $grid->model()->where('type', 1)
         $grid->fixColumns(0, 0);
         return $grid;
@@ -53,8 +53,8 @@ class ACategoryController extends AdminController
         $show->field('productGroup.name', __('Tên loại sản phẩm'));
         $show->field('name', __('Tên phân loại'));
         $show->field('description', __('Mô tả'));
-        $show->field('created_at', __('Created at'))->sortable();
-        $show->field('updated_at', __('Updated at'));
+        $show->field('created_at', __('Ngày tạo'))->sortable();
+        $show->field('updated_at', __('Ngày cập nhật'));
         return $show;
     }
 
