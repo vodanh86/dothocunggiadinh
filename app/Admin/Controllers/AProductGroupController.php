@@ -26,14 +26,14 @@ class AProductGroupController extends AdminController
     {
         $grid = new Grid(new ProductGroupModel());
         $grid->column('name', __('Tên nhóm sản phẩm'));
-        $grid->column('description', __('Mô tả'));
+        $grid->column('description', __('Mô tả'))->textarea();
         $grid->column('cover_image', __('Ảnh'))->image();
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
         $grid->column('created_at', __('Ngày tạo'))->sortable();
         $grid->column('updated_at', __('Ngày cập nhật'));
-        $grid->fixColumns(0, 0);
+//        $grid->fixColumns(0, 0);
         return $grid;
     }
 
