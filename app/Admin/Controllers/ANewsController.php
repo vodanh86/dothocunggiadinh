@@ -28,7 +28,7 @@ class ANewsController extends AdminController
     {
         $grid = new Grid(new CommunicationModel);
         $grid->column('title', __('Tiêu đề'));
-        $grid->column('summary', __('Tóm tắt'));
+        $grid->column('summary', __('Tóm tắt'))->textarea();
         $grid->column('content', __('Nội dung'))->textarea();
         $grid->column('slug', __('Đường dẫn'));
         $grid->column('image', __('Hình ảnh'))->image();
@@ -43,7 +43,7 @@ class ANewsController extends AdminController
         $grid->column('created_at', __('Ngày tạo'));
         $grid->column('updated_at', __('Ngày cập nhật'))->sortable();
         $grid->model()->where('type', 1);
-        $grid->fixColumns(0, 0);
+//        $grid->fixColumns(0, 0);
         return $grid;
     }
 

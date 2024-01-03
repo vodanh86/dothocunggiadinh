@@ -60,7 +60,7 @@ class AProductController extends AdminController
         });
         $grid->column('created_at', __('Ngày tạo'))->sortable();
         $grid->column('updated_at', __('Ngày cập nhật'));
-        $grid->fixColumns(0, 0);
+//        $grid->fixColumns(0, 0);
         return $grid;
     }
 
