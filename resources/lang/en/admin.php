@@ -17,7 +17,7 @@ return [
     'create'                => 'Create',
     'delete'                => 'Delete',
     'remove'                => 'Remove',
-    'edit'                  => 'Edit',
+    'edit'                  => 'Chỉnh sửa',
     'view'                  => 'View',
     'continue_editing'      => 'Continue editing',
     'continue_creating'     => 'Continue creating',
