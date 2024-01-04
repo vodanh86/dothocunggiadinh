@@ -26,15 +26,15 @@ class AEventsController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new CommunicationModel);
-        $grid->column('title', __('Tiêu đề'));
+        $grid->column('title', __('Tiêu đề'))->filter('like');
         $grid->column('summary', __('Tóm tắt'))->textarea();
         $grid->column('content', __('Nội dung'))->textarea();
         $grid->column('slug', __('Đường dẫn'));
-        $grid->column('start_date', __('Ngày bắt đầu'));
-        $grid->column('end_date', __('Ngày kết thúc'));
+        $grid->column('start_date', __('Ngày bắt đầu'))->filter('range', 'date');
+        $grid->column('end_date', __('Ngày kết thúc'))->filter('range', 'date');
         $grid->column('image', __('Hình ảnh'))->image();
 //        $grid->column('public_date', __('Ngày công khai'));
-        $grid->column('author', __('Tác giả'));
+        $grid->column('author', __('Tác giả'))->filter('like');
         $grid->column('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
         });
@@ -45,6 +45,7 @@ class AEventsController extends AdminController
         $grid->column('updated_at', __('Ngày cập nhật'))->sortable();
         $grid->model()->where('type', 0);
         $grid->fixColumns(0, 0);
+        $grid->disableFilter();
         return $grid;
     }
 

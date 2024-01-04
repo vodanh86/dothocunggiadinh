@@ -27,7 +27,7 @@ class ADeliverySystemController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new DeliverySystemModel());
-        $grid->column('name', __('Tên hệ thống phân phối'));
+        $grid->column('name', __('Tên hệ thống phân phối'))->filter('like');
         $grid->column('phone_number', __('Số điện thoại'));
         $grid->column('email', __('Email'));
         $grid->column('address', __('Địa chỉ'));
@@ -39,6 +39,8 @@ class ADeliverySystemController extends AdminController
         });
         $grid->column('created_at', __('Ngày tạo'))->sortable();
         $grid->column('updated_at', __('Ngày cập nhật'));
+
+        $grid->disableFilter();
 //        $grid->fixColumns(0, 0);
         return $grid;
     }

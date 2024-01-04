@@ -25,7 +25,7 @@ class ASocialInformationController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new SocialInformationModel());
-        $grid->column('product.name', __('Tên sản phẩm'));
+        $grid->column('product.name', __('Tên sản phẩm'))->filter('like');
         $grid->column('platform', __('Nền tảng'));
         $grid->column('link', __('Link sản phẩm'))->textarea();
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
@@ -34,6 +34,7 @@ class ASocialInformationController extends AdminController
         $grid->column('created_at', __('Ngày tạo'))->sortable();
         $grid->column('updated_at', __('Ngày cập nhật'));
         $grid->fixColumns(0, 0);
+        $grid->disableFilter();
         return $grid;
     }
 

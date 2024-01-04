@@ -29,7 +29,7 @@ class AProductController extends AdminController
         $grid = new Grid(new ProductModel());
         $grid->column('productGroup.name', __('Tên nhóm sản phẩm'))->textarea();
         $grid->column('category.name', __('Loại sản phẩm'));
-        $grid->column('name', __('Tên sản phẩm'));
+        $grid->column('name', __('Tên sản phẩm'))->filter('like');
         $grid->column('slug', __('Đường dẫn'));
         $grid->column('qr_code', __('Đường dẫn QR Code'))->qrcode();
         $grid->column('video', __('Video'))->display(function ($video) {
@@ -61,6 +61,7 @@ class AProductController extends AdminController
         $grid->column('created_at', __('Ngày tạo'))->sortable();
         $grid->column('updated_at', __('Ngày cập nhật'));
 //        $grid->fixColumns(0, 0);
+        $grid->disableFilter();
         return $grid;
     }
 
@@ -74,7 +75,7 @@ class AProductController extends AdminController
     {
         $show = new Show(ProductModel::findOrFail($id));
         $show->field('productGroup.name', __('Tên nhóm sản phẩm'));
-        $show->field('name', __('Tên phân loại'));
+        $show->field('category.name', __('Tên phân loại'));
         $show->field('slug', __('Đường dẫn'));
         $show->field('qr_code', __('Đường dẫn QR Code'));
         $show->field('description', __('Mô tả'));

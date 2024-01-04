@@ -22,7 +22,7 @@ return [
     'continue_editing'      => 'Continue editing',
     'continue_creating'     => 'Continue creating',
     'detail'                => 'Chi tiết',
-    'browse'                => 'Tải lên',
+    'browse'                => 'Tải ',
     'reset'                 => 'Làm mới',
     'export'                => 'Xuất dữ liệu',
     'batch_delete'          => 'Batch delete',

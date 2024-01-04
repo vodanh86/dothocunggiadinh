@@ -41,6 +41,7 @@ class AContactController extends AdminController
         $grid->column('updated_at', __('Ngày cập nhật'));
 //        $grid->model()->where('type', 1)
         $grid->fixColumns(0, 0);
+        $grid->disableFilter();
         return $grid;
     }
 
@@ -54,8 +55,8 @@ class AContactController extends AdminController
     {
         $show = new Show(ContactModel::findOrFail($id));
         $show->field('name', __('Họ và tên'));
-        $show->field('phone_number', __('Số điện thoại'));
-        $show->field('email', __('Email'));
+        $show->field('phone_number', __('Số điện thoại'))->filter('like');
+        $show->field('email', __('Email'))->filter('like');
         $show->field('content', __('Sản phẩm quan tâm'));
         $show->field('reply', __('Trạng thái phản hồi'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Reply", "grid");
