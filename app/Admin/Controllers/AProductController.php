@@ -27,7 +27,7 @@ class AProductController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new ProductModel());
-        $grid->column('productGroup.name', __('Tên nhóm sản phẩm'))->textarea();
+        $grid->column('productGroup.name', __('Tên nhóm sản phẩm'));
         $grid->column('category.name', __('Loại sản phẩm'));
         $grid->column('name', __('Tên sản phẩm'))->filter('like');
         $grid->column('slug', __('Đường dẫn'));
