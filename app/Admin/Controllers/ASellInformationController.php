@@ -27,7 +27,7 @@ class ASellInformationController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new SellInformationModel());
-        $grid->column('product.name', __('Tên sản phẩm'));
+        $grid->column('product.name', __('Tên sản phẩm'))->filter('like');
         $grid->column('type', __('Phân loại'));
         $grid->column('image', __('Hình ảnh'))->image();
         $grid->column('origin_price', __('Giá ban đầu'));
@@ -42,6 +42,7 @@ class ASellInformationController extends AdminController
         $grid->column('created_at', __('Ngày tạo'))->sortable();
         $grid->column('updated_at', __('Ngày cập nhật'));
         $grid->fixColumns(0, 0);
+        $grid->disableFilter();
         return $grid;
     }
 

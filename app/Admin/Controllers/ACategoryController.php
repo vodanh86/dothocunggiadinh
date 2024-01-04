@@ -28,8 +28,8 @@ class ACategoryController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new CategoryModel());
-        $grid->column('productGroup.name', __('Tên loại sản phẩm'));
-        $grid->column('name', __('Tên phân loại'));
+        $grid->column('productGroup.name', __('Tên loại sản phẩm'))->filter('like');
+        $grid->column('name', __('Tên phân loại'))->filter('like');
         $grid->column('description', __('Mô tả'))->textarea();
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
@@ -38,6 +38,7 @@ class ACategoryController extends AdminController
         $grid->column('updated_at', __('Ngày cập nhật'));
 //        $grid->model()->where('type', 1)
 //        $grid->fixColumns(0, 0);
+        $grid->disableFilter();
         return $grid;
     }
 
