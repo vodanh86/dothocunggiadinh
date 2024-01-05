@@ -78,7 +78,7 @@ class ACategoryController extends AdminController
             $form->select('product_group_id', __('Tên nhóm sản phẩm'))->options($productGroup)->default($productGroupId);
         }
         else {
-            $form->select('product_group_id', __('Tên loại sản phẩm'))->options($productGroup)->required();
+            $form->select('product_group_id', __('Tên nhóm sản phẩm'))->options($productGroup)->required();
         }
         $form->text('name', __('Tên phân loại'));
         $form->text('description', __('Mô tả'));
