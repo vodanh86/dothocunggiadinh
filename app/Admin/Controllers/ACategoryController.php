@@ -75,7 +75,7 @@ class ACategoryController extends AdminController
             $id = request()->route()->parameter('category');
             $productGroupId = $form->model()->find($id)->getOriginal("product_group_id");
 
-            $form->select('product_group_id', __('Tên loại sản phẩm'))->options($productGroup)->default($productGroupId);
+            $form->select('product_group_id', __('Tên nhóm sản phẩm'))->options($productGroup)->default($productGroupId);
         }
         else {
             $form->select('product_group_id', __('Tên loại sản phẩm'))->options($productGroup)->required();
