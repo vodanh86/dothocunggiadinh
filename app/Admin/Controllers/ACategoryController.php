@@ -28,7 +28,7 @@ class ACategoryController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new CategoryModel());
-        $grid->column('productGroup.name', __('Tên loại sản phẩm'))->filter('like');
+        $grid->column('productGroup.name', __('Tên nhóm sản phẩm'))->filter('like');
         $grid->column('name', __('Tên phân loại'))->filter('like');
         $grid->column('description', __('Mô tả'))->textarea();
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
