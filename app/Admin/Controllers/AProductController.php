@@ -152,11 +152,11 @@ class AProductController extends AdminController
         $form->image('image5', __('Hình ảnh 5'));
         $form->image('image6', __('Hình ảnh 6'));
         $form->image('image7', __('Hình ảnh 7'));
-        $form->textarea('description', __('Mô tả'));
-        $form->textarea('detail', __('Chi tiết sản phẩm'));
-        $form->textarea('sell_policy', __('Chính sách giao hàng'));
-        $form->textarea('payment_policy', __('Chính sách thanh toán'));
-        $form->textarea('change_policy', __('Chính sách đổi trả'));
+        $form->ckeditor('description', __('Mô tả'));
+        $form->ckeditor('detail', __('Chi tiết sản phẩm'))->required();
+        $form->ckeditor('sell_policy', __('Chính sách giao hàng'));
+        $form->ckeditor('payment_policy', __('Chính sách thanh toán'));
+        $form->ckeditor('change_policy', __('Chính sách đổi trả'));
         $form->select('is_outstanding', __('Sản phẩm nổi bật'))->options($highlightOptions)->default($highlightDefault);
         $form->text('tags', __('Tags'));
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
