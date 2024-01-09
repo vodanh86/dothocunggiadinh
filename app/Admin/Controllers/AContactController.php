@@ -37,10 +37,10 @@ class AContactController extends AdminController
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
-        $grid->column('created_at', __('Ngày tạo'))->sortable();
-        $grid->column('updated_at', __('Ngày cập nhật'));
-//        $grid->model()->where('type', 1)
-        $grid->fixColumns(0, 0);
+        $grid->column('created_at', __('Ngày tạo'));
+        $grid->column('updated_at', __('Ngày cập nhật'))->sortable();
+        $grid->model()->orderBy('created_at', 'desc');
+        $grid->fixColumns(0, -1);
         $grid->disableFilter();
         return $grid;
     }

@@ -32,9 +32,10 @@ class AProductGroupController extends AdminController
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
         $grid->column('created_at', __('Ngày tạo'))->sortable();
-        $grid->column('updated_at', __('Ngày cập nhật'));
+        $grid->column('updated_at', __('Ngày cập nhật'))->sortable();
+        $grid->model()->orderBy('created_at', 'desc');
         $grid->disableFilter();
-//        $grid->fixColumns(0, 0);
+        $grid->fixColumns(0, -1);
         return $grid;
     }
 

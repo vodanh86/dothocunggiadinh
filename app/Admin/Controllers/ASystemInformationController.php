@@ -44,8 +44,10 @@ class ASystemInformationController extends AdminController
         $grid->column('updated_at', __('Ngày cập nhật'))->display(function ($updatedAt) {
             return ConstantHelper::dateFormatter($updatedAt);
         });
+        $grid->model()->orderBy('created_at', 'desc');
         $grid->disableExport();
 //        $grid->fixColumns(0, 0);
+        $grid->fixColumns(0, -1);
 
         $grid->actions(function ($actions) {
             $blockDelete = $actions->row->block_delete;
