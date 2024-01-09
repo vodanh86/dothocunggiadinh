@@ -43,9 +43,10 @@ class ANewsController extends AdminController
         $grid->column('created_at', __('Ngày tạo'));
         $grid->column('updated_at', __('Ngày cập nhật'))->sortable();
         $grid->model()->where('type', 1);
+        $grid->model()->orderBy('created_at', 'desc');
 
         $grid->disableFilter();
-//        $grid->fixColumns(0, 0);
+        $grid->fixColumns(0, -1);
         return $grid;
     }
 

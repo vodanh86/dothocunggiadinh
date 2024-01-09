@@ -33,7 +33,8 @@ class ASocialInformationController extends AdminController
         });
         $grid->column('created_at', __('Ngày tạo'))->sortable();
         $grid->column('updated_at', __('Ngày cập nhật'));
-        $grid->fixColumns(0, 0);
+        $grid->model()->orderBy('created_at', 'desc');
+        $grid->fixColumns(0, -1);
         $grid->disableFilter();
         return $grid;
     }
