@@ -34,9 +34,9 @@ class ANewsController extends AdminController
         $grid->column('image', __('Hình ảnh'))->image();
 //        $grid->column('public_date', __('Ngày công khai'));
         $grid->column('author', __('Tác giả'))->filter('like');
-        $grid->column('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
-            return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
-        });
+//        $grid->column('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
+//            return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
+//        });
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
@@ -68,9 +68,9 @@ class ANewsController extends AdminController
         $show->field('image', __('Hình ảnh'))->image();
 //        $show->field('public_date', __('Ngày công khai'));
         $show->field('author', __('Tác giả'));
-        $show->field('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
-            return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
-        });
+//        $show->field('is_display', __('Trạng thái hiển thị'))->display(function ($status) {
+//            return UtilsCommonHelper::statusFormatter($status, "Communication", "grid");
+//        });
         $show->field('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
@@ -95,6 +95,7 @@ class ANewsController extends AdminController
         $form = new Form(new CommunicationModel);
         $form->hidden('type', __('Phân loại'))->value(1);
         $form->hidden('slug', __('Đường dẫn'));
+        $form->hidden('is_display', __('Trạng thái hiển thị'))->value($displayDefault);
         if ($form->isEditing()) {
             $id = request()->route()->parameter('news');
         }
@@ -105,7 +106,7 @@ class ANewsController extends AdminController
         $form->image('image', __('Hình ảnh'));
 //        $form->date('public_date', __('Ngày công khai'));
         $form->text('author', __('Tác giả'));
-        $form->select('is_display', __('Trạng thái hiển thị'))->options($displayOptions)->default($displayDefault);
+//        $form->select('is_display', __('Trạng thái hiển thị'))->options($displayOptions)->default($displayDefault);
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
         $form->saving(function ($form) {
             if (!($form->model()->id && $form->model()->title === $form->title)) {

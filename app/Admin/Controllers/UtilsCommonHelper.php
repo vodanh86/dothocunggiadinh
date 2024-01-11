@@ -20,12 +20,11 @@ class UtilsCommonHelper
             return CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
-        }elseif ($group ==="Communication"){
+        } elseif ($group === "Communication") {
             return CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
-        }
-        else {
+        } else {
             $commonCode = CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
@@ -52,6 +51,7 @@ class UtilsCommonHelper
     {
         return ProductGroupModel::all()->where('status', 1)->pluck('name', 'id');
     }
+
     public static function findAllProduct()
     {
         return ProductModel::all()->where('status', 1)->pluck('name', 'id');
@@ -79,12 +79,12 @@ class UtilsCommonHelper
                 ->where('type', 'Status')
                 ->where('value', $result)
                 ->first();
-        }elseif ($group === "Highlight") {
+        } elseif ($group === "Highlight") {
             $commonCode = CommonCodeModel::where('group', $group)
                 ->where('type', 'Status')
                 ->where('value', $result)
                 ->first();
-        }elseif ($group === "Product") {
+        } elseif ($group === "Product") {
             $commonCode = CommonCodeModel::where('group', $group)
                 ->where('type', 'FreeShip')
                 ->where('value', $result)
@@ -97,8 +97,28 @@ class UtilsCommonHelper
                 ->first();
         }
         if ($commonCode && $isGrid === "grid") {
-            return $result === 1 ? "<span class='label label-success'>$commonCode->description_vi</span>" : "<span class='label label-danger'>$commonCode->description_vi</span>";
+            if ($group === 'Reply') {
+                switch ($result) {
+                    case 0:
+                        $result = "<span class='label label-danger'>$commonCode->description_vi</span>";
+                        break;
+                    case 1:
+                        $result = "<span class='label label-info'>$commonCode->description_vi</span>";
+                        break;
+                    case 2:
+                        $result = "<span class='label label-success'>$commonCode->description_vi</span>";
+                        break;
+                    case 3:
+                        $result = "<span class='label ' style='background-color: #97a0b3'>$commonCode->description_vi</span>";
+                        break;
+                }
+                return $result;
+            } else {
+                return $result === 1 ? "<span class='label label-success'>$commonCode->description_vi</span>" : "<span class='label label-danger'>$commonCode->description_vi</span>";
+            }
         }
+
+
         return $commonCode->description_vi;
     }
 
@@ -136,6 +156,7 @@ class UtilsCommonHelper
         $code = $type . $today . $userId . $time;
         return $code;
     }
+
     public static function create_slug($string)
     {
         $search = array(

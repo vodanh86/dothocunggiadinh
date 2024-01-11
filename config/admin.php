@@ -406,7 +406,29 @@ return [
     |
     */
     'extensions' => [
+        'custom-actions-button' => [
 
+            "enable" => true,
+
+            "view" => [
+                "label" => "Xem",
+                "icon"  => "fa fa-eye",
+                "class" => "btn btn-sm btn-info"
+            ],
+
+            "edit" => [
+                "label" => "Chỉnh sửa",
+                "icon"  => "fa fa-edit",
+                "class" => "btn btn-sm btn-warning"
+            ],
+
+            "delete" => [
+                "label" => "Xoá",
+                "icon"  => "fa fa-trash",
+                "class" => "btn btn-sm btn-danger"
+            ]
+
+        ],
         'ckeditor' => [
 
             //Set to false if you want to disable this extension
