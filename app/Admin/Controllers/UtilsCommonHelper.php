@@ -9,6 +9,7 @@ use App\Models\CommonCodeModel;
 use App\Models\ProductGroupModel;
 use App\Models\ProductModel;
 use Carbon\Carbon;
+use DateTime;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Str;
 
@@ -57,6 +58,18 @@ class UtilsCommonHelper
         return ProductModel::all()->where('status', 1)->pluck('name', 'id');
     }
 
+    /**
+     * @throws \Exception
+     */
+    public static function convertDateTime($timeInput)
+    {
+        // Create a DateTime object from the original string
+        $dateTime = new DateTime($timeInput);
+
+// Format the date as per your requirement
+        return $dateTime->format('Y-m-d H:i:s');
+    }
+
     public static function optionsCategoryByProductGroupId($productGroupId)
     {
         if ($productGroupId !== null) {
@@ -103,7 +116,7 @@ class UtilsCommonHelper
                         $result = "<span class='label label-danger'>$commonCode->description_vi</span>";
                         break;
                     case 1:
-                        $result = "<span class='label label-info'>$commonCode->description_vi</span>";
+                        $result = "<span class='label label-warning'>$commonCode->description_vi</span>";
                         break;
                     case 2:
                         $result = "<span class='label label-success'>$commonCode->description_vi</span>";
