@@ -105,12 +105,12 @@ class AEventsController extends AdminController
             $id = request()->route()->parameter('event');
             $branchId = $form->model()->find($id)->getOriginal("branch_id");
         }
-        $form->text('title', __('Tiêu đề'));
-        $form->text('summary', __('Tóm tắt'));
-        $form->textarea('content', __('Nội dung'));
+        $form->text('title', __('Tiêu đề'))->required();
+        $form->text('summary', __('Tóm tắt'))->required();
+        $form->textarea('content', __('Nội dung'))->required();
         $form->date('start_date', __('Ngày bắt đầu'));
         $form->date('end_date', __('Ngày kết thúc'));
-        $form->image('image', __('Hình ảnh'));
+        $form->image('image', __('Hình ảnh'))->required();
 //        $form->date('public_date', __('Ngày công khai'));
         $form->text('author', __('Tác giả'));
 //        $form->select('is_display', __('Trạng thái hiển thị'))->options($displayOptions)->default($displayDefault);

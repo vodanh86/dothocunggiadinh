@@ -150,7 +150,7 @@ class AProductController extends AdminController
         }
         $form->text('name', __('Tên sản phẩm'))->required();
         $form->file('video', __('Video'));
-        $form->image('image', __('Hình ảnh'));
+        $form->image('image', __('Hình ảnh'))->required();
         $form->image('image2', __('Hình ảnh 2'));
         $form->image('image3', __('Hình ảnh 3'));
         $form->image('image4', __('Hình ảnh 4'));

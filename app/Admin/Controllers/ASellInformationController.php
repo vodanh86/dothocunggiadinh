@@ -96,7 +96,7 @@ class ASellInformationController extends AdminController
             $form->select('product_id', __('Tên sản phẩm'))->options($product)->required();
         }
         $form->text('type', __('Phân loại'))->required();
-        $form->image('image', __('Hình ảnh'));
+        $form->image('image', __('Hình ảnh'))->required();
         $form->currency('origin_price', __('Giá ban đầu'))->symbol('VND')->required();
         $form->currency('current_price', __('Giá hiện tại'))->symbol('VND')->required()->readonly();
         $form->rate('sale_percent', __('Tỉ lệ giảm (%)'))->default(0)->required();

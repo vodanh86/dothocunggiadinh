@@ -104,10 +104,10 @@ class ANewsController extends AdminController
             $id = request()->route()->parameter('news');
         }
 
-        $form->text('title', __('Tiêu đề'));
-        $form->text('summary', __('Tóm tắt'));
-        $form->textarea('content', __('Nội dung'));
-        $form->image('image', __('Hình ảnh'));
+        $form->text('title', __('Tiêu đề'))->required();
+        $form->text('summary', __('Tóm tắt'))->required();
+        $form->textarea('content', __('Nội dung'))->required();
+        $form->image('image', __('Hình ảnh'))->required();
 //        $form->date('public_date', __('Ngày công khai'));
         $form->text('author', __('Tác giả'));
 //        $form->select('is_display', __('Trạng thái hiển thị'))->options($displayOptions)->default($displayDefault);
