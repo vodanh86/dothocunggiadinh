@@ -84,7 +84,7 @@ class ACategoryController extends AdminController
         else {
             $form->select('product_group_id', __('Tên nhóm sản phẩm'))->options($productGroup)->required();
         }
-        $form->text('name', __('Tên phân loại'));
+        $form->text('name', __('Tên phân loại'))->required();
         $form->text('description', __('Mô tả'));
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
 

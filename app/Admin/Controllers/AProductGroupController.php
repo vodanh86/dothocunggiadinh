@@ -75,9 +75,9 @@ class AProductGroupController extends AdminController
         if ($form->isEditing()) {
             $id = request()->route()->parameter('product_group');
         }
-        $form->text('name', __('Tên nhóm sản phẩm'));
+        $form->text('name', __('Tên nhóm sản phẩm'))->required();
         $form->text('description', __('Mô tả'));
-        $form->image('cover_image', __('Hình ảnh'));
+        $form->image('cover_image', __('Hình ảnh'))->required();
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
 
         return $form;

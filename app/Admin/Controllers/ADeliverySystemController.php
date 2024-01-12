@@ -88,10 +88,10 @@ class ADeliverySystemController extends AdminController
         if ($form->isEditing()) {
             $id = request()->route()->parameter('delivery_system');
         }
-        $form->text('name', __('Tên hệ thống phân phối'));
-        $form->text('phone_number', __('Số điện thoại'));
+        $form->text('name', __('Tên hệ thống phân phối'))->required();
+        $form->text('phone_number', __('Số điện thoại'))->required();
         $form->email('email', __('Email'));
-        $form->text('address', __('Địa chỉ'));
+        $form->text('address', __('Địa chỉ'))->required();
         $form->text('address_map', __('Địa chỉ trên bản đồ'));
         $form->number('order', __('Thứ tự'));
         $form->text('note', __('Ghi chú'));
