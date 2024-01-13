@@ -58,18 +58,6 @@ class UtilsCommonHelper
         return ProductModel::all()->where('status', 1)->pluck('name', 'id');
     }
 
-    /**
-     * @throws \Exception
-     */
-    public static function convertDateTime($timeInput)
-    {
-        // Create a DateTime object from the original string
-        $dateTime = new DateTime($timeInput);
-
-// Format the date as per your requirement
-        return $dateTime->format('Y-m-d H:i:s');
-    }
-
     public static function optionsCategoryByProductGroupId($productGroupId)
     {
         if ($productGroupId !== null) {
