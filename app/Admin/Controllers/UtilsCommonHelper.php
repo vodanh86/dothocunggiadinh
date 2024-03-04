@@ -25,11 +25,14 @@ class UtilsCommonHelper
             return CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
-        } else {
-            $commonCode = CommonCodeModel::where('group', $group)
+        }elseif ($group === "Reply") {
+            return CommonCodeModel::where('group', $group)
                 ->where('type', $type)
                 ->pluck($description, $value);
-            return $commonCode;
+        } else {
+            return CommonCodeModel::where('group', $group)
+                ->where('type', $type)
+                ->pluck($description, $value);
         }
     }
 
@@ -198,6 +201,14 @@ class UtilsCommonHelper
         $string = preg_replace('/(-)+/', '-', $string);
         $string = strtolower($string);
         return $string;
+    }
+
+    public static function findAllStatus($group,$type,$description,$value)
+    {
+            return CommonCodeModel::where('group', $group)
+                ->where('type', $type)
+                ->pluck($description, $value);
+
     }
 
 

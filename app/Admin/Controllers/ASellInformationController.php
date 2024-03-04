@@ -47,7 +47,18 @@ class ASellInformationController extends AdminController
         });
         $grid->model()->orderBy('created_at', 'desc');
         $grid->fixColumns(0, -1);
-        $grid->disableFilter();
+//        $grid->disableFilter();
+        $grid-> filter(function (Grid\Filter $filter) {
+            $filter->disableIdFilter();
+            $statusOptions = UtilsCommonHelper::commonCode("Core", "Status", "description_vi", "value");
+            $productGroupOptions = UtilsCommonHelper::findAllProduct();
+            $filter->equal('product_id', 'Tên  sản phẩm')->select($productGroupOptions);
+
+            $filter->like('type', 'Phân loại');
+            $filter->equal('status', 'Trạng thái')->select($statusOptions);
+            $filter->date('created_at', 'Ngày tạo');
+            $filter->date('updated_at', 'Ngày cập nhật');
+        });
         return $grid;
     }
 

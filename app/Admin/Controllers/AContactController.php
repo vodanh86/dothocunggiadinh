@@ -45,7 +45,18 @@ class AContactController extends AdminController
         });
         $grid->model()->orderBy('created_at', 'desc');
         $grid->fixColumns(0, -1);
-        $grid->disableFilter();
+//        $grid->disableFilter();
+        $grid-> filter(function (Grid\Filter $filter) {
+            $filter->disableIdFilter();
+            $statusOptions = UtilsCommonHelper::findAllStatus("Reply","Status","description_vi","value");
+
+            $filter->like('name', 'Họ và tên');
+            $filter->like('phone_number', 'Số điện thoại');
+            $filter->like('email', 'Email');
+            $filter->equal('reply', 'Trạng thái')->select($statusOptions);
+            $filter->date('created_at', 'Ngày tạo');
+            $filter->date('updated_at', 'Ngày cập nhật');
+        });
         return $grid;
     }
 

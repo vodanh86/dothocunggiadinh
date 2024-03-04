@@ -44,7 +44,18 @@ class ADeliverySystemController extends AdminController
             return ConstantHelper::dateFormatter($updatedAt);
         });
         $grid->model()->orderBy('created_at', 'desc');
-        $grid->disableFilter();
+//        $grid->disableFilter();
+        $grid-> filter(function (Grid\Filter $filter) {
+            $filter->disableIdFilter();
+            $statusOptions = UtilsCommonHelper::findAllStatus("Core","Status","description_vi","value");
+
+            $filter->like('name', 'Tên hệ thống phân phối');
+            $filter->like('phone_number', 'Số điện thoại');
+            $filter->like('email', 'Email');
+            $filter->equal('status', 'Trạng thái')->select($statusOptions);
+            $filter->date('created_at', 'Ngày tạo');
+            $filter->date('updated_at', 'Ngày cập nhật');
+        });
 //        $grid->fixColumns(0, 0);
         return $grid;
     }

@@ -33,12 +33,21 @@ class AProductGroupController extends AdminController
         });
         $grid->column('created_at', __('Ngày tạo'))->display(function ($createdAt) {
             return ConstantHelper::dateFormatter($createdAt);
-        });
+        })->sortable();
         $grid->column('updated_at', __('Ngày cập nhật'))->display(function ($updatedAt) {
             return ConstantHelper::dateFormatter($updatedAt);
-        });
+        })->sortable();
         $grid->model()->orderBy('created_at', 'desc');
-        $grid->disableFilter();
+//        $grid->disableFilter();
+        $grid-> filter(function (Grid\Filter $filter) {
+            $filter->disableIdFilter();
+            $statusOptions = UtilsCommonHelper::commonCode("Core", "Status", "description_vi", "value");
+            $filter->like('name', 'Tên nhóm sản phẩm');
+            $filter->equal('status', 'Trạng thái')->select($statusOptions);
+            $filter->date('created_at', 'Ngày tạo');
+            $filter->date('updated_at', 'Ngày cập nhật');
+        });
+//        $grid->expandFilter();
         $grid->fixColumns(0, -1);
         return $grid;
     }

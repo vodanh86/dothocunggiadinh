@@ -42,7 +42,18 @@ class ACategoryController extends AdminController
         });
         $grid->model()->orderBy('created_at', 'desc');
         $grid->fixColumns(0, -1);
-        $grid->disableFilter();
+//        $grid->disableFilter();
+        $grid-> filter(function (Grid\Filter $filter) {
+            $filter->disableIdFilter();
+            $statusOptions = UtilsCommonHelper::commonCode("Core", "Status", "description_vi", "value");
+            $productGroupOptions = UtilsCommonHelper::findAllProductGroup();
+            $filter->equal('product_group_id', 'Tên nhóm sản phẩm')->select($productGroupOptions);
+
+            $filter->like('name', 'Tên phân loại');
+            $filter->equal('status', 'Trạng thái')->select($statusOptions);
+            $filter->date('created_at', 'Ngày tạo');
+            $filter->date('updated_at', 'Ngày cập nhật');
+        });
         return $grid;
     }
 

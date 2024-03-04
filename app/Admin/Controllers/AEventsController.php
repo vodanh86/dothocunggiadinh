@@ -49,15 +49,27 @@ class AEventsController extends AdminController
         });
         $grid->model()->where('type', 0);
         $grid->model()->orderBy('created_at', 'desc');
-        $grid->fixColumns(0, -1);
-        $grid->disableFilter();
+//        $grid->disableFilter();
+
+        $grid->filter(function (Grid\Filter $filter) {
+            $filter->disableIdFilter();
+            $statusOptions = UtilsCommonHelper::findAllStatus("Core", "Status", "description_vi", "value");
+
+            $filter->like('title', 'Tiêu đề');
+            $filter->like('author', 'Tác giả');
+            $filter->equal('status', 'Trạng thái')->select($statusOptions);
+            $filter->date('created_at', 'Ngày tạo');
+            $filter->date('updated_at', 'Ngày cập nhật');
+        });
+
+//        $grid->fixColumns(0, -1);
         return $grid;
     }
 
     /**
      * Make a show builder.
      *
-     * @param mixed   $id
+     * @param mixed $id
      * @return Show
      */
     protected function detail($id)

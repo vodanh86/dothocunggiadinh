@@ -49,7 +49,17 @@ class ANewsController extends AdminController
         $grid->model()->where('type', 1);
         $grid->model()->orderBy('created_at', 'desc');
 
-        $grid->disableFilter();
+//        $grid->disableFilter();
+        $grid->filter(function (Grid\Filter $filter) {
+            $filter->disableIdFilter();
+            $statusOptions = UtilsCommonHelper::findAllStatus("Core", "Status", "description_vi", "value");
+
+            $filter->like('title', 'Tiêu đề');
+            $filter->like('author', 'Tác giả');
+            $filter->equal('status', 'Trạng thái')->select($statusOptions);
+            $filter->date('created_at', 'Ngày tạo');
+            $filter->date('updated_at', 'Ngày cập nhật');
+        });
         $grid->fixColumns(0, -1);
         return $grid;
     }
