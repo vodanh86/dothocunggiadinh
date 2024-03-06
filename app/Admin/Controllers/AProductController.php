@@ -33,7 +33,7 @@ class AProductController extends AdminController
         $grid->column('slug', __('Đường dẫn'));
         $grid->column('qr_code', __('Đường dẫn QR Code'))->qrcode();
         $grid->column('video', __('Video'))->display(function ($video) {
-            $urlProduct = env('APP_URL').'/storage';
+            $urlProduct = env('APP_URL') . '/storage';
             return " <video width='200' height='200' controls> <source src=$urlProduct/$video type='video/mp4'> </video>";
         });
         $grid->column('image', __('Hình ảnh'))->image();
@@ -67,7 +67,8 @@ class AProductController extends AdminController
         $grid->model()->orderBy('created_at', 'desc');
         $grid->fixColumns(0, -1);
 //        $grid->disableFilter();
-        $grid-> filter(function (Grid\Filter $filter) {
+
+        $grid->filter(function (Grid\Filter $filter) {
             $filter->disableIdFilter();
             $statusOptions = UtilsCommonHelper::commonCode("Core", "Status", "description_vi", "value");
             $productGroupOptions = UtilsCommonHelper::findAllProductGroup();
@@ -79,6 +80,54 @@ class AProductController extends AdminController
             $filter->equal('status', 'Trạng thái')->select($statusOptions);
             $filter->date('created_at', 'Ngày tạo');
             $filter->date('updated_at', 'Ngày cập nhật');
+
+            $urlCategory = env('APP_URL') . '/api/category/get-by-product-group';
+            $script = <<<EOT
+        $(function() {
+            var productGroupSelect = $(".product_group_id");
+            var productGroupSelectDOM = document.querySelector('.product_group_id');
+            var categorySelect = $(".category_id");
+            var categorySelectDOM = document.querySelector('.category_id');
+            var optionsProductGroup = {};
+            var optionsCategory = {};
+
+            productGroupSelect.on('change', function() {
+                categorySelect.empty();
+                optionsCategory = {};
+
+                var selectedProductGroupId = $(this).val();
+                if(!selectedProductGroupId) return
+                console.log('selectedProductGroup:' +selectedProductGroupId)
+                $.get("$urlCategory", { product_group_id: selectedProductGroupId }, function (categorys) {
+
+                    categorySelectDOM.removeAttribute('disabled');
+                    var categoryActive = categorys.filter(function (cls) {
+                        return cls.status === 1;
+                    });
+                    $.each(categoryActive, function (index, cls) {
+
+                        optionsCategory[cls.id] = cls.name;
+                    });
+                    categorySelect.empty();
+                    categorySelect.append($('<option>', {
+                        value: '',
+                        text: ''
+                    }));
+                    $.each(optionsCategory, function (id, categoryName) {
+                        categorySelect.append($('<option>', {
+                            value: id,
+                            text: categoryName
+                        }));
+                    });
+                    console.log('categorySelect:'+categorySelect);
+                    categorySelect.trigger('change');
+                });
+            });
+
+
+        });
+        EOT;
+            Admin::script($script);
         });
         return $grid;
     }
@@ -101,7 +150,7 @@ class AProductController extends AdminController
         $show->field('category.name', __('Loại sản phẩm'));
         $show->field('name', __('Tên sản phẩm'));
         $show->field('video', __('Video'))->display(function ($video) {
-            $urlProduct = env('APP_URL').'/storage';
+            $urlProduct = env('APP_URL') . '/storage';
             return " <video width='220' height='220' controls> <source src=$urlProduct/$video type='video/mp4'> </video>";
         });
         $show->field('image', __('Hình ảnh'))->image();
@@ -183,7 +232,7 @@ class AProductController extends AdminController
             if (!($form->model()->id && $form->model()->name === $form->name)) {
                 $slugConvert = UtilsCommonHelper::create_slug($form->name, ProductModel::get());
                 $form->slug = $slugConvert;
-                $form->qr_code = $urlFrontEnd.$slugConvert;
+                $form->qr_code = $urlFrontEnd . $slugConvert;
             }
         });
         $urlProductGroup = env('APP_URL') . '/api/product-group';
