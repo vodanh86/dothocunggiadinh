@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\ProductGroupModel;
+use App\Models\ProductModel;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -28,6 +29,7 @@ class AProductGroupController extends AdminController
         $grid->column('name', __('Tên nhóm sản phẩm'))->filter('like');
         $grid->column('description', __('Mô tả'))->textarea();
         $grid->column('cover_image', __('Ảnh'))->image();
+        $grid->column('qr_code', __('Mã QR'))->qrcode();
         $grid->column('status', __('Trạng thái'))->display(function ($status) {
             return UtilsCommonHelper::statusFormatter($status, "Core", "grid");
         });
@@ -39,7 +41,7 @@ class AProductGroupController extends AdminController
         })->sortable();
         $grid->model()->orderBy('created_at', 'desc');
 //        $grid->disableFilter();
-        $grid-> filter(function (Grid\Filter $filter) {
+        $grid->filter(function (Grid\Filter $filter) {
             $filter->disableIdFilter();
             $statusOptions = UtilsCommonHelper::commonCode("Core", "Status", "description_vi", "value");
             $filter->like('name', 'Tên nhóm sản phẩm');
@@ -81,6 +83,7 @@ class AProductGroupController extends AdminController
         $statusDefault = $statusOptions->keys()->first();
 
         $form = new Form(new ProductGroupModel);
+        $form->hidden('qr_code', __('Đường dẫn'));
         if ($form->isEditing()) {
             $id = request()->route()->parameter('product_group');
         }
@@ -89,6 +92,13 @@ class AProductGroupController extends AdminController
         $form->image('cover_image', __('Hình ảnh'))->required();
         $form->select('status', __('Trạng thái'))->options($statusOptions)->default($statusDefault);
 
+        $form->saving(function ($form) {
+            $urlFrontEnd = env('FRONT_END_PRODUCT_GROUP_URL');
+            if (!($form->model()->id && $form->model()->name === $form->name)) {
+                $idProductGroup = $form->id;
+                $form->qr_code = $urlFrontEnd . $idProductGroup;
+            }
+        });
         return $form;
     }
 }
