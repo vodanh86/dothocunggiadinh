@@ -95,7 +95,9 @@ class AProductGroupController extends AdminController
         $form->saving(function ($form) {
             $urlFrontEnd = env('FRONT_END_PRODUCT_GROUP_URL');
             if (!($form->model()->id && $form->model()->name === $form->name)) {
-                $idProductGroup = $form->id;
+                $idProductGroup = $form->model()->id;
+                error_log("idProductGroup:");
+                error_log($idProductGroup);
                 $form->qr_code = $urlFrontEnd . $idProductGroup;
             }
         });
