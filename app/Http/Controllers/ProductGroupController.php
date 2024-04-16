@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\Controllers\ConstantHelper;
 use App\Models\ProductGroupModel;
 use App\Traits\ResponseFormattingTrait;
 use Illuminate\Http\Request;
@@ -30,13 +31,13 @@ class ProductGroupController extends Controller
 
     public static function getAll()
     {
-        $productGroups = ProductGroupModel::query()->get();
+        $productGroups = ProductGroupModel::all();
         return response()->json($productGroups);
     }
 
     public static function getAllWithLimit(Request $request)
     {
-        $limit = $request->input('limit', 6);
+        $limit = $request->input('limit', 100);
         $productGroups = ProductGroupModel::query()
             ->limit($limit)
             ->get();
