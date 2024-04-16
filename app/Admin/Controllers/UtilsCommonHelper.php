@@ -58,7 +58,9 @@ class UtilsCommonHelper
 
     public static function findAllProduct()
     {
-        return ProductModel::all()->where('status', 1)->pluck('name', 'id');
+        return ProductModel::all()->where('status', 1)
+            ->sortByDesc('created_at', null)
+            ->pluck('name', 'id');
     }
 
     public static function optionsCategoryByProductGroupId($productGroupId)
